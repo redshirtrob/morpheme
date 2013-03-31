@@ -133,6 +133,8 @@
 		D426C06B1707D0870080A00E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C06A1707D0870080A00E /* AppDelegate.m */; };
 		D426C06E1707D0870080A00E /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C06D1707D0870080A00E /* HelloWorldLayer.m */; };
 		D426C0711707D0870080A00E /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0701707D0870080A00E /* IntroLayer.m */; };
+		D426C07D1707D47C0080A00E /* Tiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = D426C07B1707D47C0080A00E /* Tiles.plist */; };
+		D426C07E1707D47C0080A00E /* Tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = D426C07C1707D47C0080A00E /* Tiles.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -398,6 +400,8 @@
 		D426C06D1707D0870080A00E /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		D426C06F1707D0870080A00E /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		D426C0701707D0870080A00E /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		D426C07B1707D47C0080A00E /* Tiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Tiles.plist; path = Resources/Tiles.plist; sourceTree = "<group>"; };
+		D426C07C1707D47C0080A00E /* Tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tiles.png; path = Resources/Tiles.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +476,8 @@
 		D426BEF21707D0850080A00E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D426C07B1707D47C0080A00E /* Tiles.plist */,
+				D426C07C1707D47C0080A00E /* Tiles.png */,
 				D426BEF31707D0850080A00E /* Default.png */,
 				D426BEF51707D0850080A00E /* Default-Landscape~ipad.png */,
 				D426BEF71707D0850080A00E /* fps_images.png */,
@@ -895,6 +901,8 @@
 				D426BF081707D0850080A00E /* Icon@2x.png in Resources */,
 				D426BF0B1707D0850080A00E /* iTunesArtwork in Resources */,
 				D426C0491707D0870080A00E /* ChangeLog in Resources */,
+				D426C07D1707D47C0080A00E /* Tiles.plist in Resources */,
+				D426C07E1707D47C0080A00E /* Tiles.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
