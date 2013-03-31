@@ -16,6 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    PRINT_RECT("_window.bounds", _window.bounds);
     CCGLView *glView = [CCGLView viewWithFrame:[_window bounds]
 				 pixelFormat:kEAGLColorFormatRGB565
 				 depthFormat:0
@@ -57,7 +58,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
 
 
