@@ -45,7 +45,7 @@
     [sharedFileUtils setiPadSuffix:@"-ipad"];					// Default on iPad is "ipad"
     [sharedFileUtils setiPadRetinaDisplaySuffix:@"-ipadhd"];	// Default on iPad RetinaDisplay is "-ipadhd"
 
-    [CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
+    [CCTexture2D PVRImagesHavePremultipliedAlpha:NO];
 
     [_director pushScene:[[[GameBoardScene alloc] init] autorelease]];
 
