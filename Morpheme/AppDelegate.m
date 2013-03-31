@@ -61,7 +61,6 @@
     return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
 
-
 -(void)applicationWillResignActive:(UIApplication *)application {
     if ([_navController visibleViewController] == _director) [_director pause];
 }

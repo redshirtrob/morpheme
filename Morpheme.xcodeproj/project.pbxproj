@@ -135,6 +135,7 @@
 		D426C07E1707D47C0080A00E /* Tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = D426C07C1707D47C0080A00E /* Tiles.png */; };
 		D426C0801707F3D90080A00E /* gameboard-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D426C07F1707F3D90080A00E /* gameboard-bg.png */; };
 		D426C0831707FC7C0080A00E /* GameBoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0821707FC7C0080A00E /* GameBoardScene.m */; };
+		D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0891708072E0080A00E /* TileGridLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -399,9 +400,11 @@
 		D426C07B1707D47C0080A00E /* Tiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Tiles.plist; path = Resources/Tiles.plist; sourceTree = "<group>"; };
 		D426C07C1707D47C0080A00E /* Tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tiles.png; path = Resources/Tiles.png; sourceTree = "<group>"; };
 		D426C07F1707F3D90080A00E /* gameboard-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gameboard-bg.png"; path = "Resources/gameboard-bg.png"; sourceTree = "<group>"; };
-		D426C0811707FC7B0080A00E /* GameBoardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBoardScene.h; path = Scenes/GameBoardScene.h; sourceTree = "<group>"; };
-		D426C0821707FC7C0080A00E /* GameBoardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBoardScene.m; path = Scenes/GameBoardScene.m; sourceTree = "<group>"; };
+		D426C0811707FC7B0080A00E /* GameBoardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBoardScene.h; path = GameBoard/GameBoardScene.h; sourceTree = "<group>"; };
+		D426C0821707FC7C0080A00E /* GameBoardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBoardScene.m; path = GameBoard/GameBoardScene.m; sourceTree = "<group>"; };
 		D426C087170802C40080A00E /* MorphemeCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MorphemeCommon.h; path = Common/MorphemeCommon.h; sourceTree = "<group>"; };
+		D426C0881708072E0080A00E /* TileGridLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileGridLayer.h; path = GameBoard/TileGridLayer.h; sourceTree = "<group>"; };
+		D426C0891708072E0080A00E /* TileGridLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TileGridLayer.m; path = GameBoard/TileGridLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,7 +465,7 @@
 			children = (
 				D426C0861708029A0080A00E /* Common */,
 				D426C085170801AE0080A00E /* Main */,
-				D426C0841708019B0080A00E /* Scenes */,
+				D426C0841708019B0080A00E /* GameBoard */,
 				D426BEF21707D0850080A00E /* Resources */,
 				D426BF0C1707D0850080A00E /* libs */,
 				D426C0651707D0870080A00E /* Supporting Files */,
@@ -836,13 +839,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D426C0841708019B0080A00E /* Scenes */ = {
+		D426C0841708019B0080A00E /* GameBoard */ = {
 			isa = PBXGroup;
 			children = (
 				D426C0811707FC7B0080A00E /* GameBoardScene.h */,
 				D426C0821707FC7C0080A00E /* GameBoardScene.m */,
+				D426C0881708072E0080A00E /* TileGridLayer.h */,
+				D426C0891708072E0080A00E /* TileGridLayer.m */,
 			);
-			name = Scenes;
+			name = GameBoard;
 			sourceTree = "<group>";
 		};
 		D426C085170801AE0080A00E /* Main */ = {
@@ -889,6 +894,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Robert Jones";
 			};
 			buildConfigurationList = D426BED71707D0840080A00E /* Build configuration list for PBXProject "Morpheme" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1041,6 +1047,7 @@
 				D426C0681707D0870080A00E /* main.m in Sources */,
 				D426C06B1707D0870080A00E /* AppDelegate.m in Sources */,
 				D426C0831707FC7C0080A00E /* GameBoardScene.m in Sources */,
+				D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,7 +1069,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1081,7 +1088,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1097,6 +1104,7 @@
 				GCC_PREFIX_HEADER = Morpheme/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"Morpheme/libs/kazmath/include\"";
 				INFOPLIST_FILE = Morpheme/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -1115,6 +1123,7 @@
 				GCC_PREFIX_HEADER = Morpheme/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"Morpheme/libs/kazmath/include\"";
 				INFOPLIST_FILE = Morpheme/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
