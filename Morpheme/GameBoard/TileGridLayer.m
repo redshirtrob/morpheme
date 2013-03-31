@@ -20,11 +20,16 @@
 #define kTileWidth (64.0)
 #define kTileHeight (64.0)
 
+typedef enum {
+    kSwipeHorizontal = 0,
+    kSwipeVertical,
+} SwipeType;
+
 #define XCoord(i) (kLeftMargin + (((i)+1) * kSeparatorMargin) + (((i) + 0.5) * kTileWidth))
 #define YCoord(j) (1024 - (kTopMargin + (((j)+1) * kSeparatorMargin) + (((j) + 0.5) * kTileHeight)))
 
 @interface TileGridLayer ()
-@property (nonatomic, retain) UITouch *activeTouch;
+@property (nonatomic, assign) UITouch *activeTouch;
 @property (nonatomic, retain) NSMutableArray *gameGrid;
 @property (nonatomic, retain) LetterTile *activeTile;
 @end
@@ -38,11 +43,13 @@
 	CCSpriteBatchNode *tilesSheet = [CCSpriteBatchNode batchNodeWithFile:@"Tiles.png"];
 	[self addChild:tilesSheet];
 	_gameGrid = [[NSMutableArray alloc] init];
-	for (int i = 0; i < N_ROWS; i++) {
+	for (int r = 0; r < N_ROWS; r++) {
 	    NSMutableArray *row = [[NSMutableArray alloc] init];
-	    for (int j = 0; j < N_COLS; j++) {
+	    for (int c = 0; c < N_COLS; c++) {
 		LetterTile *tile = [LetterTile randomTile];
-		tile.position = ccp(XCoord(i), YCoord(j));
+		tile.row = r;
+		tile.col = c;
+		tile.position = ccp(XCoord(c), YCoord(r));
 		[tilesSheet addChild:tile];
 		[row addObject:tile];
 	    }
@@ -56,7 +63,6 @@
 
 - (void)dealloc {
     [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
-    [_activeTouch release];
     [_activeTile release];
     [_gameGrid release];
     [super dealloc];
@@ -75,6 +81,17 @@
     return nil;
 }
 
+- (void)updateWithSwipe:(SwipeType)swipe change:(CGFloat)change {
+    if (swipe == kSwipeHorizontal) {
+	for (LetterTile *tile in _gameGrid[_activeTile.row]) {
+	    tile.position = ccp(tile.position.x+change, tile.position.y);
+	}
+    }
+    else {
+	// Handle vertical swipe
+    }
+}
+
 #pragma mark - CCTargetedTouchDelegate
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -83,13 +100,19 @@
 	if ( (self.activeTile = [self tileForTouch:touch]) != nil) {
 	    self.activeTouch = touch;
 	    touchBegan = YES;
-	    NSLog(@"activeTile=%@", _activeTile);
 	}
     }
     return touchBegan;
 }
 
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGPoint location = [[CCDirector sharedDirector] convertToGL:[touch locationInView:[touch view]]];
+    CGPoint prevLocation = [[CCDirector sharedDirector] convertToGL:[touch previousLocationInView:[touch view]]];
+    CGFloat deltaX = location.x-prevLocation.x;
+    CGFloat deltaY = location.y-prevLocation.y;
+    SwipeType swipe = (fabsf(deltaX) >= fabsf(deltaY)) ? kSwipeHorizontal : kSwipeVertical;
+    CGFloat change = swipe == kSwipeHorizontal ? deltaX : deltaX;
+    [self updateWithSwipe:swipe change:change];
 }
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {

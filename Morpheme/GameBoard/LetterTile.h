@@ -43,6 +43,8 @@ typedef enum {
 }
 
 @property (nonatomic) LetterTileType type;
+@property (nonatomic) NSInteger row;
+@property (nonatomic) NSInteger col;
 
 + (id)letterTileWithType:(LetterTileType)type;
 + (id)randomTile;

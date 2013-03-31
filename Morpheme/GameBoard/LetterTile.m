@@ -48,7 +48,7 @@ static NSArray *TypeMap = nil;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: Letter='%@'", [super description], TypeMap[_type]];
+    return [NSString stringWithFormat:@"%@: Letter='%@', coords=(%d, %d)", [super description], TypeMap[_type], _row, _col];
 }
 
 - (BOOL)containsTouchLocation:(CGPoint)location {
