@@ -18,7 +18,7 @@
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     PRINT_RECT("_window.bounds", _window.bounds);
     CCGLView *glView = [CCGLView viewWithFrame:[_window bounds]
-				 pixelFormat:kEAGLColorFormatRGB565
+				 pixelFormat:kEAGLColorFormatRGBA8
 				 depthFormat:0
 				 preserveBackbuffer:NO
 				 sharegroup:nil

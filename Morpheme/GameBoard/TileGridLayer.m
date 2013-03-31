@@ -7,6 +7,7 @@
 //
 
 #import "TileGridLayer.h"
+#import "MorphemeCommon.h"
 
 @implementation TileGridLayer
 
@@ -15,7 +16,6 @@
     if (self) {
 	[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Tiles.plist"];
 	CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"A-Color.png"];
-	sprite.scale = 0.5;
 	sprite.position = ccp(100.0, 100.0);
 	[self addChild:sprite];
     }
