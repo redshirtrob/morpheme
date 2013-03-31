@@ -47,4 +47,12 @@ static NSArray *TypeMap = nil;
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@: Letter='%@'", [super description], TypeMap[_type]];
+}
+
+- (BOOL)containsTouchLocation:(CGPoint)location {
+    return CGRectContainsPoint(self.boundingBox, location);
+}
+
 @end

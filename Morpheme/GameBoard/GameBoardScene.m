@@ -33,10 +33,6 @@
     return self;
 }
 
--(void)onEnter {
-    [super onEnter];
-}
-
 - (void)dealloc {
     [_backgroundLayer release];
     [_tileGridLayer release];

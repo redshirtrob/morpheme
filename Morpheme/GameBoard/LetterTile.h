@@ -48,5 +48,6 @@ typedef enum {
 + (id)randomTile;
 
 - (id)initWithType:(LetterTileType)type;
+- (BOOL)containsTouchLocation:(CGPoint)location;
 
 @end
