@@ -226,6 +226,88 @@ typedef enum {
     }
 }
 
+- (void)shiftDownByDelta:(CGFloat)delta {
+    NSInteger start = [self startRow];
+    NSInteger end = [self endRow];
+    LetterTile *firstTile = (LetterTile *)_gameGrid[start][_activeTile.col];
+    CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
+    CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
+    CGFloat totalChange = fabsf(startPoint.y-_activeTile.position.y);
+
+    // First Tile
+    if (firstTile.position.y < firstTilePoint.y) {
+	firstTile.position = ccp(firstTile.position.x, firstTile.position.y+delta);
+    }
+    else {
+	firstTile.scale = (kTileHeight-totalChange)/kTileHeight;
+	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+totalChange/2.0);
+    }
+
+    // Shift the rest of the column
+    for (NSInteger row = start+1; row < end; row++) {
+	LetterTile *tile = (LetterTile *)_gameGrid[row][_activeTile.col];
+	tile.position = ccp(tile.position.x, tile.position.y+delta);
+    }
+
+    // Last Tile
+    LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
+    if (lastTile.scale < 1.0) {
+	CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
+	lastTile.scale = (kTileHeight-totalChange)/kTileHeight;
+	if (lastTile.scale > 0.95) {
+	    lastTile.scale = 1.0;
+	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-delta);
+	}
+	else {
+	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-totalChange/2.0);
+	}
+    }
+    else {
+	lastTile.position = ccp(lastTile.position.x, lastTile.position.y+delta);
+    }
+}
+
+- (void)shiftUpByDelta:(CGFloat)delta {
+    NSInteger start = [self startRow];
+    NSInteger end = [self endRow];
+    LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
+    CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
+    CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
+    CGFloat totalChange = fabsf(startPoint.y-_activeTile.position.y);
+
+    // Last Tile
+    if (lastTile.position.y > lastTilePoint.y) {
+	lastTile.position = ccp(lastTile.position.x, lastTile.position.y-delta);
+    }
+    else {
+	lastTile.scale = (kTileHeight-totalChange)/kTileHeight;
+	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-totalChange/2.0);
+    }
+
+    // Shift the rest of the column
+    for (NSInteger row = end-1; row > start; row--) {
+	LetterTile *tile = (LetterTile *)_gameGrid[row][_activeTile.col];
+	tile.position = ccp(tile.position.x, tile.position.y-delta);
+    }
+
+    // First Tile
+    LetterTile *firstTile = (LetterTile *)_gameGrid[start][_activeTile.col];
+    if (firstTile.scale < 1.0) {
+	CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
+	firstTile.scale = (kTileHeight-totalChange)/kTileHeight;
+	if (firstTile.scale > 0.95) {
+	    firstTile.scale = 1.0;
+	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y-delta);
+	}
+	else {
+	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+totalChange/2.0);
+	}
+    }
+    else {
+	firstTile.position = ccp(firstTile.position.x, firstTile.position.y-delta);
+    }
+}
+
 - (void)updateWithSwipe:(SwipeType)swipe change:(CGFloat)change {
     if (!AreSwipesSame(swipe, _prevSwipe) && _prevSwipe != kSwipeNone) [self snapTiles];
     if (swipe == kSwipeLeft) {
@@ -234,13 +316,11 @@ typedef enum {
     else if (swipe == kSwipeRight) {
 	[self shiftRightByDelta:change];
     }
-    else {
-	NSInteger start = [self startRow];
-	NSInteger end = [self endRow];
-	for (NSInteger row = start; row <= end && (start-end); row++) {
-	    LetterTile *tile = (LetterTile *)_gameGrid[row][_activeTile.col];
-	    tile.position = ccp(tile.position.x, tile.position.y-change);
-	}
+    else if (swipe == kSwipeUp) {
+	[self shiftUpByDelta:change];
+    }
+    else if (swipe == kSwipeDown) {
+	[self shiftDownByDelta:change];
     }
     _prevSwipe = swipe;
 }
