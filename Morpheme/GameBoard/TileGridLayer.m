@@ -24,6 +24,7 @@
 #define kSeparatorMargin (8.0)
 #define kTileWidth (64.0)
 #define kTileHeight (64.0)
+#define kGridDetent (58.0)
 
 typedef enum {
     kSwipeNone = -1,
@@ -148,7 +149,9 @@ typedef enum {
     NSInteger start = [self startColumn];
     NSInteger end = [self endColumn];
     LetterTile *firstTile = (LetterTile *)_gameGrid[_activeTile.row][start];
+    LetterTile *lastTile = (LetterTile *)_gameGrid[_activeTile.row][end];
     CGPoint firstTilePoint = [_gridCoordinates[_activeTile.row][start] CGPointValue];
+    CGPoint lastTilePoint = [_gridCoordinates[_activeTile.row][end] CGPointValue];
     CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
     CGFloat totalChange = fabsf(startPoint.x-_activeTile.position.x);
 
@@ -168,9 +171,7 @@ typedef enum {
     }
 
     // Last Tile
-    LetterTile *lastTile = (LetterTile *)_gameGrid[_activeTile.row][end];
     if (lastTile.scale < 1.0) {
-	CGPoint lastTilePoint = [_gridCoordinates[_activeTile.row][end] CGPointValue];
 	lastTile.scale = (kTileWidth-totalChange)/kTileWidth;
 	if (lastTile.scale > 0.95) {
 	    lastTile.scale = 1.0;
@@ -183,12 +184,33 @@ typedef enum {
     else {
 	lastTile.position = ccp(lastTile.position.x-delta, lastTile.position.y);
     }
+
+    // Snap to position if necessary
+    if (totalChange > kGridDetent) {
+	[firstTile retain];
+	[_gameGrid[_activeTile.row] removeObjectAtIndex:firstTile.col];
+	firstTile.position = lastTilePoint;
+	firstTile.scale = 1.0;
+	firstTile.col = lastTile.col;
+	[_gameGrid[_activeTile.row] insertObject:firstTile atIndex:firstTile.col];
+	[firstTile release];
+
+	for (NSInteger col = start; col < end; col++) {
+	    LetterTile *thisTile = (LetterTile *)_gameGrid[_activeTile.row][col];
+	    thisTile.position = [_gridCoordinates[_activeTile.row][col] CGPointValue];
+	    thisTile.col = col;
+	    thisTile.scale = 1.0;
+	}
+	// Clear totalChange
+    }
 }
 
 - (void)shiftRightByDelta:(CGFloat)delta {
     NSInteger start = [self startColumn];
     NSInteger end = [self endColumn];
+    LetterTile *firstTile = (LetterTile *)_gameGrid[_activeTile.row][start];
     LetterTile *lastTile = (LetterTile *)_gameGrid[_activeTile.row][end];
+    CGPoint firstTilePoint = [_gridCoordinates[_activeTile.row][start] CGPointValue];
     CGPoint lastTilePoint = [_gridCoordinates[_activeTile.row][end] CGPointValue];
     CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
     CGFloat totalChange = fabsf(startPoint.x-_activeTile.position.x);
@@ -209,9 +231,7 @@ typedef enum {
     }
 
     // First Tile
-    LetterTile *firstTile = (LetterTile *)_gameGrid[_activeTile.row][start];
     if (firstTile.scale < 1.0) {
-	CGPoint firstTilePoint = [_gridCoordinates[_activeTile.row][start] CGPointValue];
 	firstTile.scale = (kTileWidth-totalChange)/kTileWidth;
 	if (firstTile.scale > 0.95) {
 	    firstTile.scale = 1.0;
@@ -224,13 +244,33 @@ typedef enum {
     else {
 	firstTile.position = ccp(firstTile.position.x+delta, firstTile.position.y);
     }
+
+    // Snap to position if necessary
+    if (totalChange > kGridDetent) {
+	[lastTile retain];
+	[_gameGrid[_activeTile.row] removeObjectAtIndex:lastTile.col];
+	lastTile.position = firstTilePoint;
+	lastTile.scale = 1.0;
+	lastTile.col = firstTile.col;
+	[_gameGrid[_activeTile.row] insertObject:lastTile atIndex:lastTile.col];
+
+	for (NSInteger col = end; col > start; col--) {
+	    LetterTile *thisTile = (LetterTile *)_gameGrid[_activeTile.row][col];
+	    thisTile.position = [_gridCoordinates[_activeTile.row][col] CGPointValue];
+	    thisTile.col = col;
+	    thisTile.scale = 1.0;
+	}
+	// Clear totalChange
+    }
 }
 
-- (void)shiftDownByDelta:(CGFloat)delta {
+- (void)shiftUpByDelta:(CGFloat)delta {
     NSInteger start = [self startRow];
     NSInteger end = [self endRow];
     LetterTile *firstTile = (LetterTile *)_gameGrid[start][_activeTile.col];
+    LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
     CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
+    CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
     CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
     CGFloat totalChange = fabsf(startPoint.y-_activeTile.position.y);
 
@@ -250,9 +290,7 @@ typedef enum {
     }
 
     // Last Tile
-    LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
     if (lastTile.scale < 1.0) {
-	CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
 	lastTile.scale = (kTileHeight-totalChange)/kTileHeight;
 	if (lastTile.scale > 0.95) {
 	    lastTile.scale = 1.0;
@@ -265,12 +303,31 @@ typedef enum {
     else {
 	lastTile.position = ccp(lastTile.position.x, lastTile.position.y+delta);
     }
+
+    // Snap to position if necessary
+    if (totalChange > kGridDetent) {
+	[firstTile retain];
+	for (NSInteger row = start+1; row <= end; row++) {
+	    LetterTile *thisTile = _gameGrid[row][_activeTile.col];
+	    thisTile.row = row-1;
+	    thisTile.position = [_gridCoordinates[row-1][_activeTile.col] CGPointValue];
+	    thisTile.scale = 1.0;
+	    [_gameGrid[row-1] replaceObjectAtIndex:_activeTile.col withObject:thisTile];
+	}
+	firstTile.position = [_gridCoordinates[end][_activeTile.col] CGPointValue];
+	firstTile.row = end;
+	[_gameGrid[end] replaceObjectAtIndex:_activeTile.col withObject:firstTile];
+	[firstTile release];
+	// Clear totalChange
+    }
 }
 
-- (void)shiftUpByDelta:(CGFloat)delta {
+- (void)shiftDownByDelta:(CGFloat)delta {
     NSInteger start = [self startRow];
     NSInteger end = [self endRow];
+    LetterTile *firstTile = (LetterTile *)_gameGrid[start][_activeTile.col];
     LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
+    CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
     CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
     CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
     CGFloat totalChange = fabsf(startPoint.y-_activeTile.position.y);
@@ -291,9 +348,7 @@ typedef enum {
     }
 
     // First Tile
-    LetterTile *firstTile = (LetterTile *)_gameGrid[start][_activeTile.col];
     if (firstTile.scale < 1.0) {
-	CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
 	firstTile.scale = (kTileHeight-totalChange)/kTileHeight;
 	if (firstTile.scale > 0.95) {
 	    firstTile.scale = 1.0;
@@ -305,6 +360,23 @@ typedef enum {
     }
     else {
 	firstTile.position = ccp(firstTile.position.x, firstTile.position.y-delta);
+    }
+    
+    // Snap to position if necessary
+    if (totalChange > kGridDetent) {
+	[lastTile retain];
+	for (NSInteger row = end-1; row >= start; row--) {
+	    LetterTile *thisTile = _gameGrid[row][_activeTile.col];
+	    thisTile.row = row+1;
+	    thisTile.position = [_gridCoordinates[row+1][_activeTile.col] CGPointValue];
+	    thisTile.scale = 1.0;
+	    [_gameGrid[row+1] replaceObjectAtIndex:_activeTile.col withObject:thisTile];
+	}
+	lastTile.position = [_gridCoordinates[start][_activeTile.col] CGPointValue];
+	lastTile.row = start;
+	[_gameGrid[start] replaceObjectAtIndex:_activeTile.col withObject:lastTile];
+	[lastTile release];
+	// Clear totalChange
     }
 }
 
@@ -353,7 +425,7 @@ typedef enum {
     }
 
     if ((IsVerticalSwipe(_prevSwipe) && deltaY > 0) || (deltaY > V_SWIPE_LENGTH && fabsf(deltaX) < H_SWIPE_VARIANCE)) {
-	SwipeType swipe = (_startLocation.y < currLocation.y) ? kSwipeUp : kSwipeDown;
+	SwipeType swipe = (_startLocation.y < currLocation.y) ? kSwipeDown : kSwipeUp;
 	[self updateWithSwipe:swipe change:deltaY];
 	_startLocation = currLocation;
 	return;
