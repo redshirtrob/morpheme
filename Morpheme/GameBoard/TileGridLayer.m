@@ -402,7 +402,7 @@ typedef enum {
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     BOOL touchBegan = NO;
     if (!_activeTouch) {
-	if ( (self.activeTile = [self tileForTouch:touch]) != nil) {
+	if ( ((self.activeTile = [self tileForTouch:touch]) != nil) && (self.activeTile.isLocked == NO)) {
 	    self.activeTouch = touch;
 	    touchBegan = YES;
 	    _prevSwipe = kSwipeNone;
