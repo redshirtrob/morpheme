@@ -24,7 +24,7 @@
 #define kSeparatorMargin (8.0)
 #define kTileWidth (64.0)
 #define kTileHeight (64.0)
-#define kGridDetent (58.0)
+#define kGridDetent (68.0)
 
 typedef enum {
     kSwipeNone = -1,
@@ -47,6 +47,7 @@ typedef enum {
 @property (nonatomic, retain) LetterTile *activeTile;
 @property (nonatomic) SwipeType prevSwipe;
 @property (nonatomic) CGPoint startLocation;
+@property (nonatomic) CGFloat totalSwipeDelta;
 @end
 
 @implementation TileGridLayer
@@ -152,16 +153,14 @@ typedef enum {
     LetterTile *lastTile = (LetterTile *)_gameGrid[_activeTile.row][end];
     CGPoint firstTilePoint = [_gridCoordinates[_activeTile.row][start] CGPointValue];
     CGPoint lastTilePoint = [_gridCoordinates[_activeTile.row][end] CGPointValue];
-    CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
-    CGFloat totalChange = fabsf(startPoint.x-_activeTile.position.x);
 
     // First Tile
     if (firstTile.position.x > firstTilePoint.x) {
 	firstTile.position = ccp(firstTile.position.x-delta, firstTile.position.y);
     }
     else {
-	firstTile.scale = (kTileWidth-totalChange)/kTileWidth;
-	firstTile.position = ccp(firstTilePoint.x-totalChange/2.0, firstTilePoint.y);
+	firstTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
+	firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
     }
 
     // Shift the rest of the row
@@ -172,13 +171,13 @@ typedef enum {
 
     // Last Tile
     if (lastTile.scale < 1.0) {
-	lastTile.scale = (kTileWidth-totalChange)/kTileWidth;
+	lastTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
 	if (lastTile.scale > 0.95) {
 	    lastTile.scale = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x+delta, lastTilePoint.y);
 	}
 	else {
-	    lastTile.position = ccp(lastTilePoint.x+totalChange/2.0, lastTilePoint.y);
+	    lastTile.position = ccp(lastTilePoint.x+_totalSwipeDelta/2.0, lastTilePoint.y);
 	}
     }
     else {
@@ -186,7 +185,7 @@ typedef enum {
     }
 
     // Snap to position if necessary
-    if (totalChange > kGridDetent) {
+    if (_totalSwipeDelta > kGridDetent) {
 	[firstTile retain];
 	[_gameGrid[_activeTile.row] removeObjectAtIndex:firstTile.col];
 	firstTile.position = lastTilePoint;
@@ -201,7 +200,7 @@ typedef enum {
 	    thisTile.col = col;
 	    thisTile.scale = 1.0;
 	}
-	// Clear totalChange
+	_totalSwipeDelta = 0;
     }
 }
 
@@ -212,16 +211,14 @@ typedef enum {
     LetterTile *lastTile = (LetterTile *)_gameGrid[_activeTile.row][end];
     CGPoint firstTilePoint = [_gridCoordinates[_activeTile.row][start] CGPointValue];
     CGPoint lastTilePoint = [_gridCoordinates[_activeTile.row][end] CGPointValue];
-    CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
-    CGFloat totalChange = fabsf(startPoint.x-_activeTile.position.x);
 
     // Last Tile
     if (lastTile.position.x < lastTilePoint.x) {
 	lastTile.position = ccp(lastTile.position.x+delta, lastTile.position.y);
     }
     else {
-	lastTile.scale = (kTileWidth-totalChange)/kTileWidth;
-	lastTile.position = ccp(lastTilePoint.x+totalChange/2.0, lastTilePoint.y);
+	lastTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
+	lastTile.position = ccp(lastTilePoint.x+_totalSwipeDelta/2.0, lastTilePoint.y);
     }
 
     // Shift the rest of the row
@@ -232,13 +229,13 @@ typedef enum {
 
     // First Tile
     if (firstTile.scale < 1.0) {
-	firstTile.scale = (kTileWidth-totalChange)/kTileWidth;
+	firstTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
 	if (firstTile.scale > 0.95) {
 	    firstTile.scale = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x-delta, firstTilePoint.y);
 	}
 	else {
-	    firstTile.position = ccp(firstTilePoint.x-totalChange/2.0, firstTilePoint.y);
+	    firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
 	}
     }
     else {
@@ -246,7 +243,7 @@ typedef enum {
     }
 
     // Snap to position if necessary
-    if (totalChange > kGridDetent) {
+    if (_totalSwipeDelta > kGridDetent) {
 	[lastTile retain];
 	[_gameGrid[_activeTile.row] removeObjectAtIndex:lastTile.col];
 	lastTile.position = firstTilePoint;
@@ -260,7 +257,7 @@ typedef enum {
 	    thisTile.col = col;
 	    thisTile.scale = 1.0;
 	}
-	// Clear totalChange
+	_totalSwipeDelta = 0;
     }
 }
 
@@ -271,16 +268,14 @@ typedef enum {
     LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
     CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
     CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
-    CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
-    CGFloat totalChange = fabsf(startPoint.y-_activeTile.position.y);
 
     // First Tile
     if (firstTile.position.y < firstTilePoint.y) {
 	firstTile.position = ccp(firstTile.position.x, firstTile.position.y+delta);
     }
     else {
-	firstTile.scale = (kTileHeight-totalChange)/kTileHeight;
-	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+totalChange/2.0);
+	firstTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
+	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
     }
 
     // Shift the rest of the column
@@ -291,13 +286,13 @@ typedef enum {
 
     // Last Tile
     if (lastTile.scale < 1.0) {
-	lastTile.scale = (kTileHeight-totalChange)/kTileHeight;
+	lastTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
 	if (lastTile.scale > 0.95) {
 	    lastTile.scale = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-delta);
 	}
 	else {
-	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-totalChange/2.0);
+	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-_totalSwipeDelta/2.0);
 	}
     }
     else {
@@ -305,7 +300,7 @@ typedef enum {
     }
 
     // Snap to position if necessary
-    if (totalChange > kGridDetent) {
+    if (_totalSwipeDelta > kGridDetent) {
 	[firstTile retain];
 	for (NSInteger row = start+1; row <= end; row++) {
 	    LetterTile *thisTile = _gameGrid[row][_activeTile.col];
@@ -318,7 +313,7 @@ typedef enum {
 	firstTile.row = end;
 	[_gameGrid[end] replaceObjectAtIndex:_activeTile.col withObject:firstTile];
 	[firstTile release];
-	// Clear totalChange
+	_totalSwipeDelta = 0;
     }
 }
 
@@ -329,16 +324,14 @@ typedef enum {
     LetterTile *lastTile = (LetterTile *)_gameGrid[end][_activeTile.col];
     CGPoint firstTilePoint = [_gridCoordinates[start][_activeTile.col] CGPointValue];
     CGPoint lastTilePoint = [_gridCoordinates[end][_activeTile.col] CGPointValue];
-    CGPoint startPoint = [_gridCoordinates[_activeTile.row][_activeTile.col] CGPointValue];
-    CGFloat totalChange = fabsf(startPoint.y-_activeTile.position.y);
 
     // Last Tile
     if (lastTile.position.y > lastTilePoint.y) {
 	lastTile.position = ccp(lastTile.position.x, lastTile.position.y-delta);
     }
     else {
-	lastTile.scale = (kTileHeight-totalChange)/kTileHeight;
-	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-totalChange/2.0);
+	lastTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
+	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-_totalSwipeDelta/2.0);
     }
 
     // Shift the rest of the column
@@ -349,13 +342,13 @@ typedef enum {
 
     // First Tile
     if (firstTile.scale < 1.0) {
-	firstTile.scale = (kTileHeight-totalChange)/kTileHeight;
+	firstTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
 	if (firstTile.scale > 0.95) {
 	    firstTile.scale = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y-delta);
 	}
 	else {
-	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+totalChange/2.0);
+	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
 	}
     }
     else {
@@ -363,7 +356,7 @@ typedef enum {
     }
     
     // Snap to position if necessary
-    if (totalChange > kGridDetent) {
+    if (_totalSwipeDelta > kGridDetent) {
 	[lastTile retain];
 	for (NSInteger row = end-1; row >= start; row--) {
 	    LetterTile *thisTile = _gameGrid[row][_activeTile.col];
@@ -376,7 +369,7 @@ typedef enum {
 	lastTile.row = start;
 	[_gameGrid[start] replaceObjectAtIndex:_activeTile.col withObject:lastTile];
 	[lastTile release];
-	// Clear totalChange
+	_totalSwipeDelta = 0;
     }
 }
 
@@ -407,6 +400,7 @@ typedef enum {
 	    touchBegan = YES;
 	    _prevSwipe = kSwipeNone;
 	    _startLocation = [touch locationInView:[touch view]];
+	    _totalSwipeDelta = 0;
 	}
     }
     return touchBegan;
@@ -419,6 +413,7 @@ typedef enum {
 
     if ((IsHorizontalSwipe(_prevSwipe) && deltaX > 0) || (deltaX > H_SWIPE_LENGTH && fabsf(deltaY) < V_SWIPE_VARIANCE)) {
 	SwipeType swipe = (_startLocation.x < currLocation.x) ? kSwipeRight : kSwipeLeft;
+	_totalSwipeDelta += deltaX;
 	[self updateWithSwipe:swipe change:deltaX];
 	_startLocation = currLocation;
 	return;
@@ -426,6 +421,7 @@ typedef enum {
 
     if ((IsVerticalSwipe(_prevSwipe) && deltaY > 0) || (deltaY > V_SWIPE_LENGTH && fabsf(deltaX) < H_SWIPE_VARIANCE)) {
 	SwipeType swipe = (_startLocation.y < currLocation.y) ? kSwipeDown : kSwipeUp;
+	_totalSwipeDelta += deltaY;
 	[self updateWithSwipe:swipe change:deltaY];
 	_startLocation = currLocation;
 	return;
