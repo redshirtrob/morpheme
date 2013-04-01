@@ -324,8 +324,8 @@ typedef enum {
 	lastTile.position = ccp(lastTile.position.x, lastTile.position.y-delta);
     }
     else {
-	lastTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
-	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-_totalSwipeDelta/2.0);
+	lastTile.scale = (kTileHeight+_totalSwipeDelta)/kTileHeight;
+	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y+_totalSwipeDelta/2.0);
     }
 
     // Shift the rest of the column
@@ -336,7 +336,7 @@ typedef enum {
 
     // First Tile
     if (firstTile.scale < 1.0) {
-	firstTile.scale = (kTileHeight+_totalSwipeDelta)/kTileHeight;
+	firstTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
 	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
 	if (firstTile.scale > 0.95) {
 	    firstTile.scale = 1.0;
@@ -368,19 +368,15 @@ typedef enum {
 - (void)updateWithSwipe:(SwipeType)swipe change:(CGFloat)change {
     if (!AreSwipesSame(swipe, _prevSwipe) && _prevSwipe != kSwipeNone) [self snapTiles];
     if (swipe == kSwipeLeft) {
-	NSLog(@"Left");
 	[self shiftLeftByDelta:change];
     }
     else if (swipe == kSwipeRight) {
-	NSLog(@"Right");
 	[self shiftRightByDelta:change];
     }
     else if (swipe == kSwipeUp) {
-	NSLog(@"Up");
 	[self shiftUpByDelta:change];
     }
     else if (swipe == kSwipeDown) {
-	NSLog(@"Down");
 	[self shiftDownByDelta:change];
     }
     _prevSwipe = swipe;
@@ -417,7 +413,7 @@ typedef enum {
 
     if ((IsVerticalSwipe(_prevSwipe) && deltaY > 0) || (deltaY > V_SWIPE_LENGTH && fabsf(deltaX) < H_SWIPE_VARIANCE)) {
 	SwipeType swipe = (_startLocation.y < currLocation.y) ? kSwipeDown : kSwipeUp;
-	_totalSwipeDelta += (_startLocation.x < currLocation.x) ? -deltaY : deltaY;
+	_totalSwipeDelta += (_startLocation.y < currLocation.y) ? -deltaY : deltaY;
 	[self updateWithSwipe:swipe change:deltaY];
 	_startLocation = currLocation;
 	return;
