@@ -10,14 +10,11 @@
 #import "LetterTile.h"
 #import "MorphemeCommon.h"
 
+// Default grid size
 #define N_ROWS (10)
 #define N_COLS (10)
 
-#define H_SWIPE_LENGTH (5.0)
-#define H_SWIPE_VARIANCE (4.0)
-#define V_SWIPE_LENGTH (5.0)
-#define V_SWIPE_VARIANCE (4.0)
-
+// Default grid layout
 #define GRID_SIDE_MARGIN (20.0)
 #define GRID_TOP_MARGIN (44.0)
 #define GRID_SEPARATOR_MARGIN (8.0)
@@ -28,8 +25,24 @@
 
 #define XCoord(i) (GRID_SIDE_MARGIN + (((i)+1) * GRID_SEPARATOR_MARGIN) + (((i) + 0.5) * GRID_TILE_WIDTH))
 #define YCoord(j) (1024 - (GRID_TOP_MARGIN + (((j)+1) * GRID_SEPARATOR_MARGIN) + (((j) + 0.5) * GRID_TILE_HEIGHT)))
-#define IsHorizontalSwipe(s) ((BOOL)(s == kSwipeLeft || s == kSwipeRight))
-#define IsVerticalSwipe(s) ((BOOL)(s == kSwipeUp || s == kSwipeDown))
+
+// Prevent bouncing between swipe types
+#define H_SWIPE_LENGTH (5.0)
+#define H_SWIPE_VARIANCE (4.0)
+#define V_SWIPE_LENGTH (5.0)
+#define V_SWIPE_VARIANCE (4.0)
+
+// Swipe Events
+typedef enum {
+    kGridSwipeEventNone = -1,
+    kGridSwipeEventLeft = 0,
+    kGridSwipeEventRight,
+    kGridSwipeEventUp,
+    kGridSwipeEventDown,
+} GridSwipeEventType;
+
+#define IsHorizontalSwipe(s) ((BOOL)(s == kGridSwipeEventLeft || s == kGridSwipeEventRight))
+#define IsVerticalSwipe(s) ((BOOL)(s == kGridSwipeEventUp || s == kGridSwipeEventDown))
 #define AreSwipesSame(s1, s2) ((BOOL)((IsHorizontalSwipe(s1) && IsHorizontalSwipe(s2)) || (IsVerticalSwipe(s1) && IsVerticalSwipe(s2))))
 
 @interface TileGridLayer ()
@@ -37,7 +50,7 @@
 @property (nonatomic, retain) NSMutableArray *gameGrid;
 @property (nonatomic, retain) NSMutableArray *gridCoordinates;
 @property (nonatomic, retain) LetterTile *activeTile;
-@property (nonatomic) SwipeType prevSwipe;
+@property (nonatomic) GridSwipeEventType prevSwipe;
 @property (nonatomic) CGPoint startLocation;
 @property (nonatomic) CGFloat totalSwipeDelta;
 @property (nonatomic, retain) CCSpriteBatchNode *tilesSheet;
@@ -304,18 +317,18 @@
     }
 }
 
-- (void)updateWithSwipe:(SwipeType)swipe change:(CGFloat)change {
-    if (!AreSwipesSame(swipe, _prevSwipe) && _prevSwipe != kSwipeNone) [self snapTiles];
-    if (swipe == kSwipeLeft) {
+- (void)updateWithSwipe:(GridSwipeEventType)swipe change:(CGFloat)change {
+    if (!AreSwipesSame(swipe, _prevSwipe) && _prevSwipe != kGridSwipeEventNone) [self snapTiles];
+    if (swipe == kGridSwipeEventLeft) {
 	[self shiftLeftByDelta:change];
     }
-    else if (swipe == kSwipeRight) {
+    else if (swipe == kGridSwipeEventRight) {
 	[self shiftRightByDelta:change];
     }
-    else if (swipe == kSwipeUp) {
+    else if (swipe == kGridSwipeEventUp) {
 	[self shiftUpByDelta:change];
     }
-    else if (swipe == kSwipeDown) {
+    else if (swipe == kGridSwipeEventDown) {
 	[self shiftDownByDelta:change];
     }
     _prevSwipe = swipe;
@@ -329,7 +342,7 @@
 	if ( ((self.activeTile = [self tileForTouch:touch]) != nil) && (self.activeTile.isLocked == NO)) {
 	    self.activeTouch = touch;
 	    touchBegan = YES;
-	    _prevSwipe = kSwipeNone;
+	    _prevSwipe = kGridSwipeEventNone;
 	    _startLocation = [touch locationInView:[touch view]];
 	    _totalSwipeDelta = 0;
 	}
@@ -343,7 +356,7 @@
     CGFloat deltaY = fabsf(currLocation.y-_startLocation.y);
 
     if ((IsHorizontalSwipe(_prevSwipe) && deltaX > 0) || (deltaX > H_SWIPE_LENGTH && fabsf(deltaY) < V_SWIPE_VARIANCE)) {
-	SwipeType swipe = (_startLocation.x < currLocation.x) ? kSwipeRight : kSwipeLeft;
+	GridSwipeEventType swipe = (_startLocation.x < currLocation.x) ? kGridSwipeEventRight : kGridSwipeEventLeft;
 	_totalSwipeDelta += (_startLocation.x < currLocation.x) ? -deltaX : deltaX;
 	[self updateWithSwipe:swipe change:deltaX];
 	_startLocation = currLocation;
@@ -351,7 +364,7 @@
     }
 
     if ((IsVerticalSwipe(_prevSwipe) && deltaY > 0) || (deltaY > V_SWIPE_LENGTH && fabsf(deltaX) < H_SWIPE_VARIANCE)) {
-	SwipeType swipe = (_startLocation.y < currLocation.y) ? kSwipeDown : kSwipeUp;
+	GridSwipeEventType swipe = (_startLocation.y < currLocation.y) ? kGridSwipeEventDown : kGridSwipeEventUp;
 	_totalSwipeDelta += (_startLocation.y < currLocation.y) ? -deltaY : deltaY;
 	[self updateWithSwipe:swipe change:deltaY];
 	_startLocation = currLocation;
