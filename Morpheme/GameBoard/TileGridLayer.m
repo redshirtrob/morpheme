@@ -25,6 +25,7 @@
 #define kTileWidth (64.0)
 #define kTileHeight (64.0)
 #define kGridDetent (63.0)
+#define kScaleDetent (0.95)
 
 typedef enum {
     kSwipeNone = -1,
@@ -174,7 +175,7 @@ typedef enum {
     if (lastTile.scale < 1.0) {
 	lastTile.scale = (kTileWidth+_totalSwipeDelta)/kTileWidth;
 	lastTile.position = ccp(lastTilePoint.x-_totalSwipeDelta/2.0, lastTilePoint.y);
-	if (lastTile.scale > 0.95) {
+	if (lastTile.scale > kScaleDetent) {
 	    lastTile.scale = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x+delta, lastTilePoint.y);
 	}
@@ -231,7 +232,7 @@ typedef enum {
     if (firstTile.scale < 1.0) {
 	firstTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
 	firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
-	if (firstTile.scale > 0.95) {
+	if (firstTile.scale > kScaleDetent) {
 	    firstTile.scale = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x-delta, firstTilePoint.y);
 	}
@@ -287,7 +288,7 @@ typedef enum {
     if (lastTile.scale < 1.0) {
 	lastTile.scale = (kTileHeight+_totalSwipeDelta)/kTileHeight;
 	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y+_totalSwipeDelta/2.0);
-	if (lastTile.scale > 0.95) {
+	if (lastTile.scale > kScaleDetent) {
 	    lastTile.scale = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-delta);
 	}
@@ -342,7 +343,7 @@ typedef enum {
     if (firstTile.scale < 1.0) {
 	firstTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
 	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
-	if (firstTile.scale > 0.95) {
+	if (firstTile.scale > kScaleDetent) {
 	    firstTile.scale = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y-delta);
 	}
