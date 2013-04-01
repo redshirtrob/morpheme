@@ -45,6 +45,9 @@ typedef enum {
 @property (nonatomic) LetterTileType type;
 @property (nonatomic) NSInteger row;
 @property (nonatomic) NSInteger col;
+@property (nonatomic, readonly) BOOL isLocked;
+@property (nonatomic, getter=isLockedVertical) BOOL lockedVertical;
+@property (nonatomic, getter=isLockedHorizontal) BOOL lockedHorizontal;
 
 + (id)letterTileWithType:(LetterTileType)type;
 + (id)randomTile;

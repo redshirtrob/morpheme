@@ -14,7 +14,10 @@ static NSArray *TypeMap = nil;
 @interface LetterTile ()
 @end
 
-@implementation LetterTile
+@implementation LetterTile {
+    BOOL _lockedHorizontal;
+    BOOL _lockedVertical;
+}
 
 + (void)load {
     TypeMap = [@[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H",
@@ -28,7 +31,10 @@ static NSArray *TypeMap = nil;
 
 + (id)randomTile {
     LetterTileType type = (LetterTileType)(arc4random() % 26);
-    return [self letterTileWithType:type];
+    BOOL locked = !(arc4random() % 10);
+    LetterTile *tile = [self letterTileWithType:type];
+    tile.lockedHorizontal = tile.lockedVertical = locked;
+    return tile;
 }
 
 + (NSString *)colorFrameFileFromType:(LetterTileType)type {
@@ -53,6 +59,37 @@ static NSArray *TypeMap = nil;
 
 - (BOOL)containsTouchLocation:(CGPoint)location {
     return CGRectContainsPoint(self.boundingBox, location);
+}
+
+#pragma mark - Getters/Setters
+
+- (BOOL)isLocked {
+    return (BOOL)(_lockedVertical || _lockedHorizontal);
+}
+
+- (BOOL)isLockedHorizontal {
+    return _lockedHorizontal;
+}
+
+- (void)setLockedHorizontal:(BOOL)lockedHorizontal {
+    _lockedHorizontal = lockedHorizontal;
+    [self updateFrame];
+}
+
+- (BOOL)isLockedVertical {
+    return _lockedVertical;
+}
+
+- (void)setLockedVertical:(BOOL)lockedVertical {
+    _lockedVertical = lockedVertical;
+    [self updateFrame];
+}
+
+#pragma mark - Private Methods
+
+- (void)updateFrame {
+    NSString *frameName = self.isLocked ? [LetterTile whiteFrameFileFromType:_type] : [LetterTile colorFrameFileFromType:_type];
+    [self setDisplayFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:frameName]];
 }
 
 @end
