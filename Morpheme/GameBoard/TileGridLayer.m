@@ -27,14 +27,6 @@
 #define kGridDetent (63.0)
 #define kScaleDetent (0.95)
 
-typedef enum {
-    kSwipeNone = -1,
-    kSwipeLeft = 0,
-    kSwipeRight,
-    kSwipeUp,
-    kSwipeDown,
-} SwipeType;
-
 #define XCoord(i) (kLeftMargin + (((i)+1) * kSeparatorMargin) + (((i) + 0.5) * kTileWidth))
 #define YCoord(j) (1024 - (kTopMargin + (((j)+1) * kSeparatorMargin) + (((j) + 0.5) * kTileHeight)))
 #define IsHorizontalSwipe(s) ((BOOL)(s == kSwipeLeft || s == kSwipeRight))
@@ -49,6 +41,7 @@ typedef enum {
 @property (nonatomic) SwipeType prevSwipe;
 @property (nonatomic) CGPoint startLocation;
 @property (nonatomic) CGFloat totalSwipeDelta;
+@property (nonatomic, retain) CCSpriteBatchNode *tilesSheet;
 @end
 
 @implementation TileGridLayer
@@ -56,28 +49,10 @@ typedef enum {
 - (id)init {
     self = [super init];
     if (self) {
-	[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Tiles.plist"];
-	CCSpriteBatchNode *tilesSheet = [CCSpriteBatchNode batchNodeWithFile:@"Tiles.png"];
-	[self addChild:tilesSheet];
-	_gameGrid = [[NSMutableArray alloc] init];
-	_gridCoordinates = [[NSMutableArray alloc] init];
-	for (int r = 0; r < N_ROWS; r++) {
-	    NSMutableArray *row = [[NSMutableArray alloc] init];
-	    NSMutableArray *coordinatesRow = [[NSMutableArray alloc] init];
-	    for (int c = 0; c < N_COLS; c++) {
-		LetterTile *tile = [LetterTile randomTile];
-		tile.row = r;
-		tile.col = c;
-		tile.position = ccp(XCoord(c), YCoord(r));
-		[tilesSheet addChild:tile];
-		[row addObject:tile];
-		[coordinatesRow addObject:[NSValue valueWithCGPoint:tile.position]];
-	    }
-	    [_gridCoordinates addObject:coordinatesRow];
-	    [_gameGrid addObject:row];
-	    [coordinatesRow release];
-	    [row release];
-	}
+	[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:kTileDataFile];
+	self.tilesSheet = [CCSpriteBatchNode batchNodeWithFile:kTileTextureFile];
+	[self addChild:_tilesSheet];
+	[self initializeGridWithRows:N_ROWS columns:N_COLS];
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
     return self;
@@ -87,71 +62,12 @@ typedef enum {
     [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
     [_activeTile release];
     [_gameGrid release];
+    [_gridCoordinates release];
+    [_tilesSheet release];
     [super dealloc];
 }
 
-- (LetterTile *)tileForTouch:(UITouch *)touch {
-    CGPoint location = [touch locationInView:[touch view]];
-    CGPoint glLocation = [[CCDirector sharedDirector] convertToGL:location];
-    for (NSArray *row in _gameGrid) {
-	for (LetterTile *tile in row) {
-	    if ([tile containsTouchLocation:glLocation]) {
-		return tile;
-	    }
-	}
-    }
-    return nil;
-}
-
-- (NSInteger)activeRow {
-    return _activeTile.row;
-}
-
-- (NSInteger)activeColumn {
-    return _activeTile.col;
-}
-
-- (LetterTile *)objectAtRow:(NSInteger)row column:(NSInteger)column {
-    return (LetterTile *)_gameGrid[row][column];
-}
-
-- (CGPoint)pointForRow:(NSInteger)row column:(NSInteger)column {
-    return [_gridCoordinates[row][column] CGPointValue];
-}
-
-- (NSInteger)startColumn {
-    NSInteger startIndex = _activeTile.col;
-    NSInteger i = startIndex;
-    while (i >= 0 && !((LetterTile *)_gameGrid[_activeTile.row][i]).isLocked) startIndex = i--;
-    return startIndex;
-}
-
-- (NSInteger)endColumn {
-    NSInteger endIndex = _activeTile.col;
-    NSInteger i = endIndex;
-    while (i < [_gameGrid[_activeTile.row] count] && !((LetterTile *)_gameGrid[_activeTile.row][i]).isLocked) endIndex = i++;
-    return endIndex;
-}
-
-- (NSInteger)startRow {
-    NSInteger startIndex = _activeTile.row;
-    NSInteger i = startIndex;
-    while (i>= 0 && !((LetterTile *)_gameGrid[i][_activeTile.col]).isLocked) startIndex = i--;
-    return startIndex;
-}
-
-- (NSInteger)endRow {
-    NSInteger endIndex = _activeTile.row;
-    NSInteger i = endIndex;
-    while (i < [_gameGrid count] && !((LetterTile *)_gameGrid[i][_activeTile.col]).isLocked) endIndex = i++;
-    return endIndex;
-}
-
-- (void)resetObjectAtRow:(NSInteger)row column:(NSInteger)column {
-    LetterTile *tile = [self objectAtRow:row column:column];
-    tile.position = [self pointForRow:row column:column];
-    tile.scale = 1.0;
-}
+#pragma mark - Tile Animation
 
 - (void)snapTiles {
     if (IsHorizontalSwipe(_prevSwipe)) {
@@ -456,6 +372,93 @@ typedef enum {
     self.activeTouch = nil;
     self.activeTile = nil;
     // Evaluate Game Board
+}
+
+#pragma mark - Grid Model Helpers
+
+- (void)initializeGridWithRows:(NSInteger)rowCount columns:(NSInteger)columnCount {
+    _gameGrid = [[NSMutableArray alloc] init];
+    _gridCoordinates = [[NSMutableArray alloc] init];
+    for (int r = 0; r < rowCount; r++) {
+	NSMutableArray *row = [[NSMutableArray alloc] init];
+	NSMutableArray *coordinatesRow = [[NSMutableArray alloc] init];
+	for (int c = 0; c < columnCount; c++) {
+	    LetterTile *tile = [LetterTile randomTile];
+	    tile.row = r;
+	    tile.col = c;
+	    tile.position = ccp(XCoord(c), YCoord(r));
+	    [_tilesSheet addChild:tile];
+	    [row addObject:tile];
+	    [coordinatesRow addObject:[NSValue valueWithCGPoint:tile.position]];
+	}
+	[_gridCoordinates addObject:coordinatesRow];
+	[_gameGrid addObject:row];
+	[coordinatesRow release];
+	[row release];
+    }
+}
+
+- (LetterTile *)tileForTouch:(UITouch *)touch {
+    CGPoint location = [touch locationInView:[touch view]];
+    CGPoint glLocation = [[CCDirector sharedDirector] convertToGL:location];
+    for (NSArray *row in _gameGrid) {
+	for (LetterTile *tile in row) {
+	    if ([tile containsTouchLocation:glLocation]) {
+		return tile;
+	    }
+	}
+    }
+    return nil;
+}
+
+- (NSInteger)activeRow {
+    return _activeTile.row;
+}
+
+- (NSInteger)activeColumn {
+    return _activeTile.col;
+}
+
+- (LetterTile *)objectAtRow:(NSInteger)row column:(NSInteger)column {
+    return (LetterTile *)_gameGrid[row][column];
+}
+
+- (CGPoint)pointForRow:(NSInteger)row column:(NSInteger)column {
+    return [_gridCoordinates[row][column] CGPointValue];
+}
+
+- (NSInteger)startColumn {
+    NSInteger startIndex = _activeTile.col;
+    NSInteger i = startIndex;
+    while (i >= 0 && !((LetterTile *)_gameGrid[_activeTile.row][i]).isLocked) startIndex = i--;
+    return startIndex;
+}
+
+- (NSInteger)endColumn {
+    NSInteger endIndex = _activeTile.col;
+    NSInteger i = endIndex;
+    while (i < [_gameGrid[_activeTile.row] count] && !((LetterTile *)_gameGrid[_activeTile.row][i]).isLocked) endIndex = i++;
+    return endIndex;
+}
+
+- (NSInteger)startRow {
+    NSInteger startIndex = _activeTile.row;
+    NSInteger i = startIndex;
+    while (i>= 0 && !((LetterTile *)_gameGrid[i][_activeTile.col]).isLocked) startIndex = i--;
+    return startIndex;
+}
+
+- (NSInteger)endRow {
+    NSInteger endIndex = _activeTile.row;
+    NSInteger i = endIndex;
+    while (i < [_gameGrid count] && !((LetterTile *)_gameGrid[i][_activeTile.col]).isLocked) endIndex = i++;
+    return endIndex;
+}
+
+- (void)resetObjectAtRow:(NSInteger)row column:(NSInteger)column {
+    LetterTile *tile = [self objectAtRow:row column:column];
+    tile.position = [self pointForRow:row column:column];
+    tile.scale = 1.0;
 }
 
 @end

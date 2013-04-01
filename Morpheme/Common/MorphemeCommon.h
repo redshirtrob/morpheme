@@ -9,8 +9,19 @@
 #ifndef Morpheme_MorphemeCommon_h
 #define Morpheme_MorphemeCommon_h
 
+#define kTileTextureFile @"Tiles.png"
+#define kTileDataFile @"Tiles.plist"
+
 #define PRINT_POINT(l, s) NSLog(@"%s: (%6.2f, %6.2f)", l, s.x, s.y)
 #define PRINT_SIZE(l, s) NSLog(@"%s: [%6.2f, %6.2f]", l, s.width, s.height)
 #define PRINT_RECT(l, s) NSLog(@"%s: (%6.2f, %6.2f) [%6.2f, %6.2f]", l, s.origin.x, s.origin.y, s.size.width, s.size.height)
+
+typedef enum {
+    kSwipeNone = -1,
+    kSwipeLeft = 0,
+    kSwipeRight,
+    kSwipeUp,
+    kSwipeDown,
+} SwipeType;
 
 #endif
