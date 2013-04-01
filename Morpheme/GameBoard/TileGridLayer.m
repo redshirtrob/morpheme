@@ -103,6 +103,22 @@ typedef enum {
     return nil;
 }
 
+- (NSInteger)activeRow {
+    return _activeTile.row;
+}
+
+- (NSInteger)activeColumn {
+    return _activeTile.col;
+}
+
+- (LetterTile *)objectAtRow:(NSInteger)row column:(NSInteger)column {
+    return (LetterTile *)_gameGrid[row][column];
+}
+
+- (CGPoint)pointForRow:(NSInteger)row column:(NSInteger)column {
+    return [_gridCoordinates[row][column] CGPointValue];
+}
+
 - (NSInteger)startColumn {
     NSInteger startIndex = _activeTile.col;
     NSInteger i = startIndex;
@@ -131,28 +147,23 @@ typedef enum {
     return endIndex;
 }
 
+- (void)resetObjectAtRow:(NSInteger)row column:(NSInteger)column {
+    LetterTile *tile = [self objectAtRow:row column:column];
+    tile.position = [self pointForRow:row column:column];
+    tile.scale = 1.0;
+}
+
 - (void)snapTiles {
     if (IsHorizontalSwipe(_prevSwipe)) {
-	for (LetterTile *tile in _gameGrid[_activeTile.row]) {
-	    tile.position = [_gridCoordinates[tile.row][tile.col] CGPointValue];
-	    tile.scale = 1.0;
+	for (NSInteger col = 0; col < N_COLS; col++) {
+	    [self resetObjectAtRow:[self activeRow] column:col];
 	}
     }
     else {
-	for (NSMutableArray *row in _gameGrid) {
-	    LetterTile *tile = row[_activeTile.col];
-	    tile.position = [_gridCoordinates[tile.row][tile.col] CGPointValue];
-	    tile.scale = 1.0;
+	for (NSInteger row = 0; row < N_ROWS; row++) {
+	    [self resetObjectAtRow:row column:[self activeColumn]];
 	}
     }
-}
-
-- (LetterTile *)objectAtRow:(NSInteger)row column:(NSInteger)column {
-    return (LetterTile *)_gameGrid[row][column];
-}
-
-- (CGPoint)pointForRow:(NSInteger)row column:(NSInteger)column {
-    return [_gridCoordinates[row][column] CGPointValue];
 }
 
 - (void)shiftLeftByDelta:(CGFloat)delta {
