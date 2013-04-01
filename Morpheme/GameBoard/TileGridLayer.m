@@ -18,17 +18,16 @@
 #define V_SWIPE_LENGTH (5.0)
 #define V_SWIPE_VARIANCE (4.0)
 
-#define kLeftMargin (20.0)
-#define kRightMargin (20.0)
-#define kTopMargin (44.0)
-#define kSeparatorMargin (8.0)
-#define kTileWidth (64.0)
-#define kTileHeight (64.0)
-#define kGridDetent (63.0)
-#define kScaleDetent (0.95)
+#define GRID_SIDE_MARGIN (20.0)
+#define GRID_TOP_MARGIN (44.0)
+#define GRID_SEPARATOR_MARGIN (8.0)
+#define GRID_TILE_WIDTH (64.0)
+#define GRID_TILE_HEIGHT (64.0)
+#define SHIFT_DETENT (63.0)
+#define SCALE_DETENT (0.95)
 
-#define XCoord(i) (kLeftMargin + (((i)+1) * kSeparatorMargin) + (((i) + 0.5) * kTileWidth))
-#define YCoord(j) (1024 - (kTopMargin + (((j)+1) * kSeparatorMargin) + (((j) + 0.5) * kTileHeight)))
+#define XCoord(i) (GRID_SIDE_MARGIN + (((i)+1) * GRID_SEPARATOR_MARGIN) + (((i) + 0.5) * GRID_TILE_WIDTH))
+#define YCoord(j) (1024 - (GRID_TOP_MARGIN + (((j)+1) * GRID_SEPARATOR_MARGIN) + (((j) + 0.5) * GRID_TILE_HEIGHT)))
 #define IsHorizontalSwipe(s) ((BOOL)(s == kSwipeLeft || s == kSwipeRight))
 #define IsVerticalSwipe(s) ((BOOL)(s == kSwipeUp || s == kSwipeDown))
 #define AreSwipesSame(s1, s2) ((BOOL)((IsHorizontalSwipe(s1) && IsHorizontalSwipe(s2)) || (IsVerticalSwipe(s1) && IsVerticalSwipe(s2))))
@@ -96,7 +95,7 @@
 	firstTile.position = ccp(firstTile.position.x-delta, firstTile.position.y);
     }
     else {
-	firstTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
+	firstTile.scale = (GRID_TILE_WIDTH-_totalSwipeDelta)/GRID_TILE_WIDTH;
 	firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
     }
 
@@ -108,9 +107,9 @@
 
     // Last Tile
     if (lastTile.scale < 1.0) {
-	lastTile.scale = (kTileWidth+_totalSwipeDelta)/kTileWidth;
+	lastTile.scale = (GRID_TILE_WIDTH+_totalSwipeDelta)/GRID_TILE_WIDTH;
 	lastTile.position = ccp(lastTilePoint.x-_totalSwipeDelta/2.0, lastTilePoint.y);
-	if (lastTile.scale > kScaleDetent) {
+	if (lastTile.scale > SCALE_DETENT) {
 	    lastTile.scale = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x+delta, lastTilePoint.y);
 	}
@@ -120,7 +119,7 @@
     }
 
     // Snap to position if necessary
-    if (fabsf(_totalSwipeDelta) > kGridDetent) {
+    if (fabsf(_totalSwipeDelta) > SHIFT_DETENT) {
 	[firstTile retain];
 	[_gameGrid[activeRow] removeObjectAtIndex:firstTile.col];
 	firstTile.position = lastTilePoint;
@@ -153,7 +152,7 @@
 	lastTile.position = ccp(lastTile.position.x+delta, lastTile.position.y);
     }
     else {
-	lastTile.scale = (kTileWidth+_totalSwipeDelta)/kTileWidth;
+	lastTile.scale = (GRID_TILE_WIDTH+_totalSwipeDelta)/GRID_TILE_WIDTH;
 	lastTile.position = ccp(lastTilePoint.x-_totalSwipeDelta/2.0, lastTilePoint.y);
     }
 
@@ -165,9 +164,9 @@
 
     // First Tile
     if (firstTile.scale < 1.0) {
-	firstTile.scale = (kTileWidth-_totalSwipeDelta)/kTileWidth;
+	firstTile.scale = (GRID_TILE_WIDTH-_totalSwipeDelta)/GRID_TILE_WIDTH;
 	firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
-	if (firstTile.scale > kScaleDetent) {
+	if (firstTile.scale > SCALE_DETENT) {
 	    firstTile.scale = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x-delta, firstTilePoint.y);
 	}
@@ -177,7 +176,7 @@
     }
 
     // Snap to position if necessary
-    if (fabsf(_totalSwipeDelta) > kGridDetent) {
+    if (fabsf(_totalSwipeDelta) > SHIFT_DETENT) {
 	[lastTile retain];
 	[_gameGrid[activeRow] removeObjectAtIndex:lastTile.col];
 	lastTile.position = firstTilePoint;
@@ -209,7 +208,7 @@
 	firstTile.position = ccp(firstTile.position.x, firstTile.position.y+delta);
     }
     else {
-	firstTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
+	firstTile.scale = (GRID_TILE_HEIGHT-_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
     }
 
@@ -221,9 +220,9 @@
 
     // Last Tile
     if (lastTile.scale < 1.0) {
-	lastTile.scale = (kTileHeight+_totalSwipeDelta)/kTileHeight;
+	lastTile.scale = (GRID_TILE_HEIGHT+_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y+_totalSwipeDelta/2.0);
-	if (lastTile.scale > kScaleDetent) {
+	if (lastTile.scale > SCALE_DETENT) {
 	    lastTile.scale = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-delta);
 	}
@@ -233,7 +232,7 @@
     }
 
     // Snap to position if necessary
-    if (fabsf(_totalSwipeDelta) > kGridDetent) {
+    if (fabsf(_totalSwipeDelta) > SHIFT_DETENT) {
 	[firstTile retain];
 	for (NSInteger row = start+1; row <= end; row++) {
 	    LetterTile *thisTile = [self objectAtRow:row column:activeCol];
@@ -264,7 +263,7 @@
 	lastTile.position = ccp(lastTile.position.x, lastTile.position.y-delta);
     }
     else {
-	lastTile.scale = (kTileHeight+_totalSwipeDelta)/kTileHeight;
+	lastTile.scale = (GRID_TILE_HEIGHT+_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y+_totalSwipeDelta/2.0);
     }
 
@@ -276,9 +275,9 @@
 
     // First Tile
     if (firstTile.scale < 1.0) {
-	firstTile.scale = (kTileHeight-_totalSwipeDelta)/kTileHeight;
+	firstTile.scale = (GRID_TILE_HEIGHT-_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
-	if (firstTile.scale > kScaleDetent) {
+	if (firstTile.scale > SCALE_DETENT) {
 	    firstTile.scale = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y-delta);
 	}
@@ -288,7 +287,7 @@
     }
     
     // Snap to position if necessary
-    if (fabsf(_totalSwipeDelta) > kGridDetent) {
+    if (fabsf(_totalSwipeDelta) > SHIFT_DETENT) {
 	[lastTile retain];
 	for (NSInteger row = end-1; row >= start; row--) {
 	    LetterTile *thisTile = [self objectAtRow:row column:activeCol];
