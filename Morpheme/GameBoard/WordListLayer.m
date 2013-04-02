@@ -11,6 +11,7 @@
 #import "WordListLayer.h"
 #import "MorphemeCommon.h"
 #import "RJLabelTTF.h"
+#import "GameOverScene.h"
 
 #define N_ROWS (5)
 #define N_COLS (3)
@@ -119,7 +120,8 @@
 	    label.strikethrough = YES;
 	    [_foundWords addObject:label.string];
 	    if ([_foundWords count] == [_wordList count]) {
-		NSLog(@"You Win!");
+		GameOverScene *scene = [[[GameOverScene alloc] init] autorelease];
+		[[CCDirector sharedDirector] replaceScene:scene];
 	    }
 	}
     }

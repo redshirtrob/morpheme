@@ -62,7 +62,7 @@
 - (void)setStrikethroughColor:(UIColor *)strikethroughColor {
     if (_strikethroughColor != strikethroughColor) {
 	UIColor *tmpStrikethroughColor = _strikethroughColor;
-	_strikethroughColor = strikethroughColor;
+	_strikethroughColor = [strikethroughColor retain];
 	[tmpStrikethroughColor release];
 
 	if ([_strikethroughColor getRed:&_red green:&_green blue:&_blue alpha:&_alpha] == NO) {

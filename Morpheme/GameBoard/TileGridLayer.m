@@ -435,10 +435,16 @@ typedef enum {
 	NSMutableArray *row = [[NSMutableArray alloc] init];
 	NSMutableArray *coordinatesRow = [[NSMutableArray alloc] init];
 	for (int c = 0; c < columnCount; c++) {
+#if defined(CHEAT_MODE)
+	    NSInteger shuffleRow = r;
+	    NSInteger shuffleCol = c;
+	    LetterTileType type  = CharacterToType([board[@"grid"][shuffleRow] characterAtIndex:shuffleCol]);
+#else
 	    NSInteger shuffleRow = [order[shuffleIndex] intValue] / rowCount;
 	    NSInteger shuffleCol = [order[shuffleIndex] intValue] % rowCount;
 	    LetterTileType type  = CharacterToType([board[@"grid"][shuffleRow] characterAtIndex:shuffleCol]);
 	    shuffleIndex++;
+#endif
 
 	    LetterTile *tile = [LetterTile letterTileWithType:type];
 	    tile.row = r;
