@@ -13,7 +13,7 @@
 
 #define LABEL_Y_OFFSET (242.0)
 
-@interface GameBoardScene ()
+@interface GameBoardScene () <WordListLayerDelegate>
 @property (nonatomic, retain) TileGridLayer *tileGridLayer;
 @property (nonatomic, retain) WordListLayer *wordListLayer;
 @property (nonatomic, retain) NSDictionary *board;
@@ -37,6 +37,7 @@
 	[self addChild:_tileGridLayer];
 	
 	_wordListLayer = [[WordListLayer alloc] initWithOffset:LABEL_Y_OFFSET wordList:board[@"words"]];
+	_wordListLayer.delegate = self;
 	[self addChild:_wordListLayer];
     }
     return self;
@@ -44,8 +45,18 @@
 
 - (void)dealloc {
     [_tileGridLayer release];
+    _wordListLayer.delegate = nil;
     [_wordListLayer release];
     [super dealloc];
+}
+
+#pragma mark - WordListLayerDelegate
+
+- (void)didUnlockWord:(NSString *)word {
+}
+
+- (BOOL)didLockWord:(NSString *)word {
+    return YES;
 }
 
 @end

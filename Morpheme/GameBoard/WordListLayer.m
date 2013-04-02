@@ -97,7 +97,17 @@
 #pragma mark - Helpers
 
 - (void)handleTouchUpInside:(RJLabelTTF *)label {
-    NSLog(@"User tapped: %@", label.string);
+    if (label.strikethrough) {
+	[_delegate didUnlockWord:label.string];
+	label.strikethrough = NO;
+	// move to unfound words list
+    }
+    else {
+	if ([_delegate didLockWord:label.string]) {
+	    label.strikethrough = YES;
+	    // move to found words list
+	}
+    }
 }
 
 - (void)updateLabels {

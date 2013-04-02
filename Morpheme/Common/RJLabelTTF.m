@@ -10,7 +10,10 @@
 #import "MorphemeCommon.h"
 
 #define OVERRUN (5.0)
-#define LINE_WIDTH (2.0)
+#define LINE_WIDTH (3.0)
+#define LABEL_RED (0)
+#define LABEL_GREEN (15)
+#define LABEL_BLUE (83)
 
 @implementation RJLabelTTF {
     UIColor *_strikethroughColor;
@@ -24,10 +27,10 @@
 
 + (id)labelWithString:(NSString *)string fontName:(NSString *)name fontSize:(CGFloat)size {
     RJLabelTTF *label = [super labelWithString:string fontName:name fontSize:size];
-    label.color = ccc3(0, 15, 83);
+    label.color = ccc3(LABEL_RED, LABEL_GREEN, LABEL_BLUE);
     label.strikethrough = NO;
     label.strikethroughWidth = LINE_WIDTH;
-    label.strikethroughColor = [UIColor blackColor];
+    label.strikethroughColor = [UIColor colorWithRed:CG(LABEL_RED) green:CG(LABEL_GREEN) blue:CG(LABEL_BLUE) alpha:1.0];
     return label;
 }
 

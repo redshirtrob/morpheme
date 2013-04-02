@@ -17,4 +17,6 @@
 #define PRINT_SIZE(l, s) NSLog(@"%s: [%6.2f, %6.2f]", l, s.width, s.height)
 #define PRINT_RECT(l, s) NSLog(@"%s: (%6.2f, %6.2f) [%6.2f, %6.2f]", l, s.origin.x, s.origin.y, s.size.width, s.size.height)
 
+#define CG(x) (x/255.0)
+
 #endif

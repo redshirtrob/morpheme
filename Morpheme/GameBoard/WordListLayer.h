@@ -9,13 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+@protocol WordListLayerDelegate;
+
 @interface WordListLayer : CCLayer {
     
 }
 
+@property (nonatomic, assign) id <WordListLayerDelegate> delegate;
 @property (nonatomic) CGFloat offset;
 @property (nonatomic, retain) NSArray *wordList;
 
 - (id)initWithOffset:(CGFloat)offset wordList:(NSArray *)wordList;
 
+@end
+
+@protocol WordListLayerDelegate
+@required
+- (void)didUnlockWord:(NSString *)word;
+- (BOOL)didLockWord:(NSString *)word;
 @end

@@ -378,14 +378,12 @@ typedef enum {
     [self snapTiles];
     self.activeTouch = nil;
     self.activeTile = nil;
-    // Evaluate Game Board
 }
 
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
     [self snapTiles];
     self.activeTouch = nil;
     self.activeTile = nil;
-    // Evaluate Game Board
 }
 
 #pragma mark - Grid Model Helpers
@@ -405,15 +403,15 @@ typedef enum {
 	    NSInteger shuffleRow = [order[shuffleIndex] intValue] / rowCount;
 	    NSInteger shuffleCol = [order[shuffleIndex] intValue] % rowCount;
 	    LetterTileType type  = CharacterToType([board[@"grid"][shuffleRow] characterAtIndex:shuffleCol]);
-	    LetterTile *tile = [LetterTile letterTileWithType:type];
+	    shuffleIndex++;
 
+	    LetterTile *tile = [LetterTile letterTileWithType:type];
 	    tile.row = r;
 	    tile.col = c;
 	    tile.position = ccp(XCoord(c), YCoord(r));
 	    [_tilesSheet addChild:tile];
 	    [row addObject:tile];
 	    [coordinatesRow addObject:[NSValue valueWithCGPoint:tile.position]];
-	    shuffleIndex++;
 	}
 	[_gridCoordinates addObject:coordinatesRow];
 	[_gameGrid addObject:row];
