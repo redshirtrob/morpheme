@@ -14,5 +14,7 @@
 }
 
 - (id)initWithGameBoard:(NSDictionary *)board;
+- (void)unlockWord:(NSString *)word;
+- (BOOL)lockWord:(NSString *)word;
 
 @end

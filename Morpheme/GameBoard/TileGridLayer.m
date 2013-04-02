@@ -43,6 +43,12 @@ typedef enum {
     kGridSwipeEventDown,
 } GridSwipeEventType;
 
+typedef enum {
+    kWordOrientationNone = -1,
+    kWordOrientationHorizontal = 0,
+    kWordOrientationVertical,
+} WordOrientationType;
+
 #define IsHorizontalSwipe(s) ((BOOL)(s == kGridSwipeEventLeft || s == kGridSwipeEventRight))
 #define IsVerticalSwipe(s) ((BOOL)(s == kGridSwipeEventUp || s == kGridSwipeEventDown))
 #define AreSwipesSame(s1, s2) ((BOOL)((IsHorizontalSwipe(s1) && IsHorizontalSwipe(s2)) || (IsVerticalSwipe(s1) && IsVerticalSwipe(s2))))
@@ -56,6 +62,7 @@ typedef enum {
 @property (nonatomic) CGPoint startLocation;
 @property (nonatomic) CGFloat totalSwipeDelta;
 @property (nonatomic, retain) CCSpriteBatchNode *tilesSheet;
+@property (nonatomic, retain) NSDictionary *board;
 @end
 
 @implementation TileGridLayer
@@ -66,6 +73,7 @@ typedef enum {
 	[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:kTileDataFile];
 	self.tilesSheet = [CCSpriteBatchNode batchNodeWithFile:kTileTextureFile];
 	[self addChild:_tilesSheet];
+	self.board = board;
 	[self initializeGridWithBoard:board];
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
@@ -78,7 +86,27 @@ typedef enum {
     [_gameGrid release];
     [_gridCoordinates release];
     [_tilesSheet release];
+    [_board release];
     [super dealloc];
+}
+
+- (void)unlockWord:(NSString *)word {
+    NSInteger row, col;
+    WordOrientationType type;
+    BOOL found = [self findWord:word row:&row column:&col type:&type locked:YES];
+    if (found) {
+	[self updateObjectsAtRow:row column:col length:[word length] type:type locked:NO];
+    }
+}
+
+- (BOOL)lockWord:(NSString *)word {
+    NSInteger row, col;
+    WordOrientationType type;
+    BOOL found = [self findWord:word row:&row column:&col type:&type locked:NO];
+    if (found) {
+	[self updateObjectsAtRow:row column:col length:[word length] type:type locked:YES];
+    }
+    return found;
 }
 
 #pragma mark - Tile Animation
@@ -481,6 +509,68 @@ typedef enum {
     LetterTile *tile = [self objectAtRow:row column:column];
     tile.position = [self pointForRow:row column:column];
     tile.scale = 1.0;
+}
+
+- (void)updateObjectsAtRow:(NSInteger)row column:(NSInteger)column length:(NSInteger)length type:(WordOrientationType)type locked:(BOOL)locked {
+    for (NSInteger i = 0; i < length; i++) {
+	if (type == kWordOrientationHorizontal) {
+	    LetterTile *tile = [self objectAtRow:row column:column+i];
+	    tile.lockedHorizontal = locked;
+	}
+	else {
+	    LetterTile *tile = [self objectAtRow:row+i column:column];
+	    tile.lockedVertical = locked;
+	}
+    }
+}
+
+// Really naive grid search
+- (BOOL)findWord:(NSString *)word row:(NSInteger *)row column:(NSInteger *)column type:(WordOrientationType *)type locked:(BOOL)locked {
+    *type = kWordOrientationNone;
+    *row  = *column = -1;
+    NSInteger wordLength = [word length];
+
+    // Search Rows
+    NSInteger wordIndex = 0;
+    for (NSInteger r = 0; r < [_board[@"height"] intValue]; r++) {
+	for (NSInteger c = 0; c < [_board[@"width"] intValue]; c++) {
+	    LetterTile *tile = [self objectAtRow:r column:c];
+	    LetterTileType t = CharacterToType([word characterAtIndex:wordIndex]);
+	    if (tile.type == t && tile.isLockedHorizontal == locked) {
+		if (++wordIndex == wordLength) {
+		    *row = r;
+		    *column = c-wordLength+1;
+		    *type = kWordOrientationHorizontal;
+		    return YES;
+		}
+	    }
+	    else {
+		wordIndex = 0;
+	    }
+	}
+    }
+
+    // Search Columns
+    wordIndex = 0;
+    for (NSInteger c = 0; c < [_board[@"width"] intValue]; c++) {
+	for (NSInteger r = 0; r < [_board[@"height"] intValue]; r++) {
+	    LetterTile *tile = [self objectAtRow:r column:c];
+	    LetterTileType t = CharacterToType([word characterAtIndex:wordIndex]);
+	    if (tile.type == t && tile.isLockedVertical == locked) {
+		if (++wordIndex == wordLength) {
+		    *row = r-wordLength+1;
+		    *column = c;
+		    *type = kWordOrientationVertical;
+		    return YES;
+		}
+	    }
+	    else {
+		wordIndex = 0;
+	    }
+	}
+    }
+
+    return NO;
 }
 
 @end

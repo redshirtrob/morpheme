@@ -53,10 +53,11 @@
 #pragma mark - WordListLayerDelegate
 
 - (void)didUnlockWord:(NSString *)word {
+    [_tileGridLayer unlockWord:word];
 }
 
 - (BOOL)didLockWord:(NSString *)word {
-    return YES;
+    return [_tileGridLayer lockWord:word];
 }
 
 @end
