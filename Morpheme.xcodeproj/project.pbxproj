@@ -138,6 +138,7 @@
 		D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0891708072E0080A00E /* TileGridLayer.m */; };
 		D426C08D170814C00080A00E /* LetterTile.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C08C170814C00080A00E /* LetterTile.m */; };
 		D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = D426C08E170824070080A00E /* Tiles.pvr.ccz */; };
+		D426C092170A4AD80080A00E /* WordListLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C091170A4AD80080A00E /* WordListLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -410,6 +411,8 @@
 		D426C08B170814C00080A00E /* LetterTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LetterTile.h; path = GameBoard/LetterTile.h; sourceTree = "<group>"; };
 		D426C08C170814C00080A00E /* LetterTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LetterTile.m; path = GameBoard/LetterTile.m; sourceTree = "<group>"; };
 		D426C08E170824070080A00E /* Tiles.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tiles.pvr.ccz; path = Resources/Tiles.pvr.ccz; sourceTree = "<group>"; };
+		D426C090170A4AD80080A00E /* WordListLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordListLayer.h; path = GameBoard/WordListLayer.h; sourceTree = "<group>"; };
+		D426C091170A4AD80080A00E /* WordListLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordListLayer.m; path = GameBoard/WordListLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -854,6 +857,8 @@
 				D426C0891708072E0080A00E /* TileGridLayer.m */,
 				D426C08B170814C00080A00E /* LetterTile.h */,
 				D426C08C170814C00080A00E /* LetterTile.m */,
+				D426C090170A4AD80080A00E /* WordListLayer.h */,
+				D426C091170A4AD80080A00E /* WordListLayer.m */,
 			);
 			name = GameBoard;
 			sourceTree = "<group>";
@@ -1058,6 +1063,7 @@
 				D426C0831707FC7C0080A00E /* GameBoardScene.m in Sources */,
 				D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */,
 				D426C08D170814C00080A00E /* LetterTile.m in Sources */,
+				D426C092170A4AD80080A00E /* WordListLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
