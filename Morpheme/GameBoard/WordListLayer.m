@@ -27,6 +27,7 @@
 @interface WordListLayer ()
 @property (nonatomic, assign) UITouch *activeTouch;
 @property (nonatomic, retain) NSMutableArray *wordLabels;
+@property (nonatomic, retain) NSMutableArray *foundWords;
 @end
 
 @implementation WordListLayer {
@@ -38,6 +39,7 @@
     if (self) {
 	self.offset = offset;
 	_wordLabels = [[NSMutableArray alloc] init];
+	_foundWords = [[NSMutableArray alloc] init];
 	for (NSInteger row = 0; row < N_ROWS; row++) {
 	    for (NSInteger col = 0; col < N_COLS; col++) {
 		RJLabelTTF *label = [RJLabelTTF labelWithString:@"" fontName:@"Comfortaa-Bold" fontSize:FONT_SIZE];
@@ -55,6 +57,7 @@
 - (void)dealloc {
     [_wordList release];
     [_wordLabels release];
+    [_foundWords release];
     [super dealloc];
 }
 
@@ -101,12 +104,15 @@
     if (label.strikethrough) {
 	[_delegate didUnlockWord:label.string];
 	label.strikethrough = NO;
-	// move to unfound words list
+	[_foundWords removeObject:label.string];
     }
     else {
 	if ([_delegate didLockWord:label.string]) {
 	    label.strikethrough = YES;
-	    // move to found words list
+	    [_foundWords addObject:label.string];
+	    if ([_foundWords count] == [_wordList count]) {
+		NSLog(@"You Win!");
+	    }
 	}
     }
 }
