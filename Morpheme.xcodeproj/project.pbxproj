@@ -139,6 +139,7 @@
 		D426C08D170814C00080A00E /* LetterTile.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C08C170814C00080A00E /* LetterTile.m */; };
 		D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = D426C08E170824070080A00E /* Tiles.pvr.ccz */; };
 		D426C092170A4AD80080A00E /* WordListLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C091170A4AD80080A00E /* WordListLayer.m */; };
+		D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA639170A698D00447481 /* RJLabelTTF.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -413,6 +414,8 @@
 		D426C08E170824070080A00E /* Tiles.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tiles.pvr.ccz; path = Resources/Tiles.pvr.ccz; sourceTree = "<group>"; };
 		D426C090170A4AD80080A00E /* WordListLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordListLayer.h; path = GameBoard/WordListLayer.h; sourceTree = "<group>"; };
 		D426C091170A4AD80080A00E /* WordListLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordListLayer.m; path = GameBoard/WordListLayer.m; sourceTree = "<group>"; };
+		D4BDA638170A698D00447481 /* RJLabelTTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RJLabelTTF.h; path = Common/RJLabelTTF.h; sourceTree = "<group>"; };
+		D4BDA639170A698D00447481 /* RJLabelTTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RJLabelTTF.m; path = Common/RJLabelTTF.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -876,6 +879,8 @@
 			isa = PBXGroup;
 			children = (
 				D426C087170802C40080A00E /* MorphemeCommon.h */,
+				D4BDA638170A698D00447481 /* RJLabelTTF.h */,
+				D4BDA639170A698D00447481 /* RJLabelTTF.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1064,6 +1069,7 @@
 				D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */,
 				D426C08D170814C00080A00E /* LetterTile.m in Sources */,
 				D426C092170A4AD80080A00E /* WordListLayer.m in Sources */,
+				D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,6 +1175,7 @@
 				D426C0761707D0870080A00E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

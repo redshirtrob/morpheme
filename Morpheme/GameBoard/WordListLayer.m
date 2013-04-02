@@ -8,6 +8,7 @@
 
 #import "WordListLayer.h"
 #import "MorphemeCommon.h"
+#import "RJLabelTTF.h"
 
 #define N_ROWS (5)
 #define N_COLS (3)
@@ -39,7 +40,7 @@
 	_wordLabels = [[NSMutableArray alloc] init];
 	for (NSInteger row = 0; row < N_ROWS; row++) {
 	    for (NSInteger col = 0; col < N_COLS; col++) {
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"kMbMMbMMbk" fontName:@"Marker Felt" fontSize:FONT_SIZE];
+		RJLabelTTF *label = [RJLabelTTF labelWithString:@"" fontName:@"Marker Felt" fontSize:FONT_SIZE];
 		label.position = ccp(XCoord(col), YCoord(row));
 		[self addChild:label];
 		[_wordLabels addObject:label];
@@ -81,7 +82,7 @@
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     if (touch == _activeTouch) {
-	CCLabelTTF *label = [self labelForTouch:touch];
+	RJLabelTTF *label = [self labelForTouch:touch];
 	if (label) [self handleTouchUpInside:label];
 	self.activeTouch = nil;
     }
@@ -95,13 +96,13 @@
 
 #pragma mark - Helpers
 
-- (void)handleTouchUpInside:(CCLabelTTF *)label {
+- (void)handleTouchUpInside:(RJLabelTTF *)label {
     NSLog(@"User tapped: %@", label.string);
 }
 
 - (void)updateLabels {
     NSInteger index = 0;
-    for (CCLabelTTF *label in _wordLabels) {
+    for (RJLabelTTF *label in _wordLabels) {
 	NSString *word = @"";
 	if (index < [_wordList count]) {
 	    word = _wordList[index];
@@ -111,10 +112,10 @@
     }
 }
 
-- (CCLabelTTF *)labelForTouch:(UITouch *)touch {
+- (RJLabelTTF *)labelForTouch:(UITouch *)touch {
     CGPoint location = [touch locationInView:[touch view]];
     CGPoint glLocation = [[CCDirector sharedDirector] convertToGL:location];
-    for (CCLabelTTF *label in _wordLabels) {
+    for (RJLabelTTF *label in _wordLabels) {
 	if (CGRectContainsPoint(label.boundingBox, glLocation)) {
 	    return label;
 	}
