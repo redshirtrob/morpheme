@@ -97,6 +97,7 @@
 #pragma mark - Helpers
 
 - (void)handleTouchUpInside:(RJLabelTTF *)label {
+    if (![label.string length]) return;
     if (label.strikethrough) {
 	[_delegate didUnlockWord:label.string];
 	label.strikethrough = NO;
