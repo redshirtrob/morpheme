@@ -8,6 +8,7 @@
 
 #import "MainMenuLayer.h"
 #import "GameBoardScene.h"
+#import "RJLabelTTF.h"
 
 @interface MainMenuLayer ()
 @property (nonatomic, retain) NSArray *boards;
@@ -18,12 +19,13 @@
 - (id)init {
     self = [super init];
     if (self) {
-	CCLabelTTF *title = [CCLabelTTF labelWithString:@"Morpheme" fontName:@"Comfortaa-Bold" fontSize:64];
+	RJLabelTTF *title = [RJLabelTTF labelWithString:@"Morpheme" fontName:@"Comfortaa-Bold" fontSize:72];
+	
 	CGSize size = [[CCDirector sharedDirector] winSize];
-	title.position =  ccp(size.width/2.0, size.height*3.0/4.0);
+	title.position =  ccp(size.width/2.0, size.height*3.0/5.0);
 	[self addChild:title];
 
-	[CCMenuItemFont setFontSize:28];
+	[CCMenuItemFont setFontSize:36];
 	CCMenuItem *levelOneItem = [CCMenuItemFont itemWithString:@"Level One" target:self selector:@selector(play:)];
 	levelOneItem.tag = 0;
 	CCMenuItem *levelTwoItem = [CCMenuItemFont itemWithString:@"Level Two" target:self selector:@selector(play:)];
@@ -33,7 +35,7 @@
 
 	CCMenu *menu = [CCMenu menuWithItems:levelOneItem, levelTwoItem, levelThreeItem, nil];
 	[menu alignItemsVerticallyWithPadding:20];
-	[menu setPosition:ccp(size.width/2.0, size.height*3.0/4.0 - 200)];
+	[menu setPosition:ccp(size.width/2.0, size.height*3.0/5.0 - 200)];
 	[self addChild:menu];
 
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"GameBoards" ofType:@"plist"];
