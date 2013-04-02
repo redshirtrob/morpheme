@@ -9,6 +9,8 @@
 #import "TileGridLayer.h"
 #import "LetterTile.h"
 #import "MorphemeCommon.h"
+#import "NSMutableArray+Range.h"
+#import "NSMutableArray+Shuffle.h"
 
 // Default grid size
 #define N_ROWS (10)
@@ -393,18 +395,25 @@ typedef enum {
     NSInteger columnCount = [board[@"height"] intValue];
     _gameGrid = [[NSMutableArray alloc] init];
     _gridCoordinates = [[NSMutableArray alloc] init];
+    NSMutableArray *order = [NSMutableArray arrayWithRange:NSMakeRange(0, rowCount*columnCount)];
+    [order shuffle];
+    NSInteger shuffleIndex = 0;
     for (int r = 0; r < rowCount; r++) {
 	NSMutableArray *row = [[NSMutableArray alloc] init];
 	NSMutableArray *coordinatesRow = [[NSMutableArray alloc] init];
 	for (int c = 0; c < columnCount; c++) {
-	    LetterTileType type  = CharacterToType([board[@"grid"][r] characterAtIndex:c]);
+	    NSInteger shuffleRow = [order[shuffleIndex] intValue] / rowCount;
+	    NSInteger shuffleCol = [order[shuffleIndex] intValue] % rowCount;
+	    LetterTileType type  = CharacterToType([board[@"grid"][shuffleRow] characterAtIndex:shuffleCol]);
 	    LetterTile *tile = [LetterTile letterTileWithType:type];
+
 	    tile.row = r;
 	    tile.col = c;
 	    tile.position = ccp(XCoord(c), YCoord(r));
 	    [_tilesSheet addChild:tile];
 	    [row addObject:tile];
 	    [coordinatesRow addObject:[NSValue valueWithCGPoint:tile.position]];
+	    shuffleIndex++;
 	}
 	[_gridCoordinates addObject:coordinatesRow];
 	[_gameGrid addObject:row];

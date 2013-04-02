@@ -146,6 +146,8 @@
 		D4BDA646170AB8E300447481 /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA645170AB8E300447481 /* IntroScene.m */; };
 		D4BDA649170ABA8400447481 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA648170ABA8400447481 /* MainMenuLayer.m */; };
 		D4BDA64B170AC04F00447481 /* kerrisky.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA64A170AC04F00447481 /* kerrisky.png */; };
+		D4BDA64E170AC4FE00447481 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA64D170AC4FE00447481 /* NSMutableArray+Shuffle.m */; };
+		D4BDA651170AC66D00447481 /* NSMutableArray+Range.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -430,6 +432,10 @@
 		D4BDA647170ABA8400447481 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuLayer.h; path = Morpheme/Intro/MainMenuLayer.h; sourceTree = "<group>"; };
 		D4BDA648170ABA8400447481 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuLayer.m; path = Morpheme/Intro/MainMenuLayer.m; sourceTree = "<group>"; };
 		D4BDA64A170AC04F00447481 /* kerrisky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kerrisky.png; path = Resources/kerrisky.png; sourceTree = "<group>"; };
+		D4BDA64C170AC4FE00447481 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Shuffle.h"; path = "Common/NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		D4BDA64D170AC4FE00447481 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Shuffle.m"; path = "Common/NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
+		D4BDA64F170AC66D00447481 /* NSMutableArray+Range.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Range.h"; path = "Common/NSMutableArray+Range.h"; sourceTree = "<group>"; };
+		D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Range.m"; path = "Common/NSMutableArray+Range.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -900,6 +906,10 @@
 				D426C087170802C40080A00E /* MorphemeCommon.h */,
 				D4BDA638170A698D00447481 /* RJLabelTTF.h */,
 				D4BDA639170A698D00447481 /* RJLabelTTF.m */,
+				D4BDA64C170AC4FE00447481 /* NSMutableArray+Shuffle.h */,
+				D4BDA64D170AC4FE00447481 /* NSMutableArray+Shuffle.m */,
+				D4BDA64F170AC66D00447481 /* NSMutableArray+Range.h */,
+				D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1107,6 +1117,8 @@
 				D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */,
 				D4BDA646170AB8E300447481 /* IntroScene.m in Sources */,
 				D4BDA649170ABA8400447481 /* MainMenuLayer.m in Sources */,
+				D4BDA64E170AC4FE00447481 /* NSMutableArray+Shuffle.m in Sources */,
+				D4BDA651170AC66D00447481 /* NSMutableArray+Range.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
