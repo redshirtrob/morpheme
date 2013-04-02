@@ -142,6 +142,7 @@
 		D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA639170A698D00447481 /* RJLabelTTF.m */; };
 		D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */; };
 		D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */; };
+		D4BDA640170AA2BF00447481 /* GameBoards.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63F170AA2BF00447481 /* GameBoards.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -420,6 +421,7 @@
 		D4BDA639170A698D00447481 /* RJLabelTTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RJLabelTTF.m; path = Common/RJLabelTTF.m; sourceTree = "<group>"; };
 		D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Comfortaa_Regular.ttf; path = Resources/Comfortaa_Regular.ttf; sourceTree = "<group>"; };
 		D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Comfortaa-Bold.ttf"; path = "Resources/Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
+		D4BDA63F170AA2BF00447481 /* GameBoards.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GameBoards.plist; path = Resources/GameBoards.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +512,7 @@
 				D426BF071707D0850080A00E /* Icon@2x.png */,
 				D426BF091707D0850080A00E /* Info.plist */,
 				D426BF0A1707D0850080A00E /* iTunesArtwork */,
+				D4BDA63F170AA2BF00447481 /* GameBoards.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */,
 				D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */,
 				D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */,
+				D4BDA640170AA2BF00447481 /* GameBoards.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
