@@ -133,7 +133,6 @@
 		D426C06B1707D0870080A00E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C06A1707D0870080A00E /* AppDelegate.m */; };
 		D426C07D1707D47C0080A00E /* Tiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = D426C07B1707D47C0080A00E /* Tiles.plist */; };
 		D426C07E1707D47C0080A00E /* Tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = D426C07C1707D47C0080A00E /* Tiles.png */; };
-		D426C0801707F3D90080A00E /* gameboard-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D426C07F1707F3D90080A00E /* gameboard-bg.png */; };
 		D426C0831707FC7C0080A00E /* GameBoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0821707FC7C0080A00E /* GameBoardScene.m */; };
 		D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0891708072E0080A00E /* TileGridLayer.m */; };
 		D426C08D170814C00080A00E /* LetterTile.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C08C170814C00080A00E /* LetterTile.m */; };
@@ -144,6 +143,8 @@
 		D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */; };
 		D4BDA640170AA2BF00447481 /* GameBoards.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63F170AA2BF00447481 /* GameBoards.plist */; };
 		D4BDA642170AAFA100447481 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA641170AAFA000447481 /* background.png */; };
+		D4BDA646170AB8E300447481 /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA645170AB8E300447481 /* IntroScene.m */; };
+		D4BDA649170ABA8400447481 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA648170ABA8400447481 /* MainMenuLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -407,7 +408,6 @@
 		D426C06A1707D0870080A00E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D426C07B1707D47C0080A00E /* Tiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Tiles.plist; path = Resources/Tiles.plist; sourceTree = "<group>"; };
 		D426C07C1707D47C0080A00E /* Tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tiles.png; path = Resources/Tiles.png; sourceTree = "<group>"; };
-		D426C07F1707F3D90080A00E /* gameboard-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gameboard-bg.png"; path = "Resources/gameboard-bg.png"; sourceTree = "<group>"; };
 		D426C0811707FC7B0080A00E /* GameBoardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBoardScene.h; path = GameBoard/GameBoardScene.h; sourceTree = "<group>"; };
 		D426C0821707FC7C0080A00E /* GameBoardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBoardScene.m; path = GameBoard/GameBoardScene.m; sourceTree = "<group>"; };
 		D426C087170802C40080A00E /* MorphemeCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MorphemeCommon.h; path = Common/MorphemeCommon.h; sourceTree = "<group>"; };
@@ -424,6 +424,10 @@
 		D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Comfortaa-Bold.ttf"; path = "Resources/Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		D4BDA63F170AA2BF00447481 /* GameBoards.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GameBoards.plist; path = Resources/GameBoards.plist; sourceTree = "<group>"; };
 		D4BDA641170AAFA000447481 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Resources/Images/background.png; sourceTree = "<group>"; };
+		D4BDA644170AB8E300447481 /* IntroScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntroScene.h; path = Morpheme/Intro/IntroScene.h; sourceTree = "<group>"; };
+		D4BDA645170AB8E300447481 /* IntroScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IntroScene.m; path = Morpheme/Intro/IntroScene.m; sourceTree = "<group>"; };
+		D4BDA647170ABA8400447481 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuLayer.h; path = Morpheme/Intro/MainMenuLayer.h; sourceTree = "<group>"; };
+		D4BDA648170ABA8400447481 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuLayer.m; path = Morpheme/Intro/MainMenuLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +489,7 @@
 				D426C0861708029A0080A00E /* Common */,
 				D426C085170801AE0080A00E /* Main */,
 				D426C0841708019B0080A00E /* GameBoard */,
+				D4BDA643170AB88200447481 /* Intro */,
 				D426BEF21707D0850080A00E /* Resources */,
 				D426BF0C1707D0850080A00E /* libs */,
 				D426C0651707D0870080A00E /* Supporting Files */,
@@ -499,7 +504,6 @@
 				D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */,
 				D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */,
 				D426C08E170824070080A00E /* Tiles.pvr.ccz */,
-				D426C07F1707F3D90080A00E /* gameboard-bg.png */,
 				D426C07B1707D47C0080A00E /* Tiles.plist */,
 				D426C07C1707D47C0080A00E /* Tiles.png */,
 				D426BEF31707D0850080A00E /* Default.png */,
@@ -897,6 +901,18 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		D4BDA643170AB88200447481 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				D4BDA644170AB8E300447481 /* IntroScene.h */,
+				D4BDA645170AB8E300447481 /* IntroScene.m */,
+				D4BDA647170ABA8400447481 /* MainMenuLayer.h */,
+				D4BDA648170ABA8400447481 /* MainMenuLayer.m */,
+			);
+			name = Intro;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -963,7 +979,6 @@
 				D426C0491707D0870080A00E /* ChangeLog in Resources */,
 				D426C07D1707D47C0080A00E /* Tiles.plist in Resources */,
 				D426C07E1707D47C0080A00E /* Tiles.png in Resources */,
-				D426C0801707F3D90080A00E /* gameboard-bg.png in Resources */,
 				D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */,
 				D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */,
 				D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */,
@@ -1086,6 +1101,8 @@
 				D426C08D170814C00080A00E /* LetterTile.m in Sources */,
 				D426C092170A4AD80080A00E /* WordListLayer.m in Sources */,
 				D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */,
+				D4BDA646170AB8E300447481 /* IntroScene.m in Sources */,
+				D4BDA649170ABA8400447481 /* MainMenuLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

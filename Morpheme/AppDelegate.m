@@ -9,14 +9,13 @@
 #import "cocos2d.h"
 
 #import "AppDelegate.h"
-#import "GameBoardScene.h"
+#import "IntroScene.h"
 #import "MorphemeCommon.h"
 
 @implementation AppController
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    PRINT_RECT("_window.bounds", _window.bounds);
     CCGLView *glView = [CCGLView viewWithFrame:[_window bounds]
 				 pixelFormat:kEAGLColorFormatRGBA8
 				 depthFormat:0
@@ -27,7 +26,7 @@
 
     _director = (CCDirectorIOS*) [CCDirector sharedDirector];
     _director.wantsFullScreenLayout = YES;
-    [_director setDisplayStats:YES];
+    [_director setDisplayStats:NO];
     [_director setAnimationInterval:1.0/60];
     [_director setView:glView];
     [_director setDelegate:self];
@@ -40,18 +39,14 @@
     [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
 
     CCFileUtils *sharedFileUtils = [CCFileUtils sharedFileUtils];
-    [sharedFileUtils setEnableFallbackSuffixes:NO];				// Default: NO. No fallback suffixes are going to be used
-    [sharedFileUtils setiPhoneRetinaDisplaySuffix:@"-hd"];		// Default on iPhone RetinaDisplay is "-hd"
-    [sharedFileUtils setiPadSuffix:@"-ipad"];					// Default on iPad is "ipad"
-    [sharedFileUtils setiPadRetinaDisplaySuffix:@"-ipadhd"];	// Default on iPad RetinaDisplay is "-ipadhd"
+    [sharedFileUtils setEnableFallbackSuffixes:NO];
+    [sharedFileUtils setiPhoneRetinaDisplaySuffix:@"-hd"];
+    [sharedFileUtils setiPadSuffix:@"-ipad"];
+    [sharedFileUtils setiPadRetinaDisplaySuffix:@"-ipadhd"];
 
     [CCTexture2D PVRImagesHavePremultipliedAlpha:NO];
 
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"GameBoards" ofType:@"plist"];
-    NSDictionary *gameBoards = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSDictionary *board = gameBoards[@"boards"][1];
-
-    GameBoardScene *scene = [[[GameBoardScene alloc] initWithGameBoard:board] autorelease];
+    IntroScene *scene = [[[IntroScene alloc] init] autorelease];
     [_director pushScene:scene];
 
     _navController = [[UINavigationController alloc] initWithRootViewController:_director];

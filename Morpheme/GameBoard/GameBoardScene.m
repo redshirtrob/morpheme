@@ -14,7 +14,6 @@
 #define LABEL_Y_OFFSET (242.0)
 
 @interface GameBoardScene ()
-@property (nonatomic, retain) CCLayer *backgroundLayer;
 @property (nonatomic, retain) TileGridLayer *tileGridLayer;
 @property (nonatomic, retain) WordListLayer *wordListLayer;
 @property (nonatomic, retain) NSDictionary *board;
@@ -25,12 +24,13 @@
 - (id)initWithGameBoard:(NSDictionary *)board {
     self = [super init];
     if (self) {
-	_backgroundLayer = [[CCLayer alloc] init];
+	CCLayer *backgroundLayer = [[CCLayer alloc] init];
 	CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	background.position = ccp(size.width/2, size.height/2);
-	[_backgroundLayer addChild:background];
-	[self addChild:_backgroundLayer];
+	[backgroundLayer addChild:background];
+	[self addChild:backgroundLayer];
+	[backgroundLayer release];
 
 	self.board = board;
 	_tileGridLayer = [[TileGridLayer alloc] initWithGameBoard:board];
@@ -43,7 +43,6 @@
 }
 
 - (void)dealloc {
-    [_backgroundLayer release];
     [_tileGridLayer release];
     [_wordListLayer release];
     [super dealloc];
