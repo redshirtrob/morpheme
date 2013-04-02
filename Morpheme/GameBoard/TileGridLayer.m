@@ -12,10 +12,6 @@
 #import "NSMutableArray+Range.h"
 #import "NSMutableArray+Shuffle.h"
 
-// Default grid size
-#define N_ROWS (10)
-#define N_COLS (10)
-
 // Default grid layout
 #define GRID_SIDE_MARGIN (20.0)
 #define GRID_TOP_MARGIN (44.0)
@@ -113,12 +109,12 @@ typedef enum {
 
 - (void)snapTiles {
     if (IsHorizontalSwipe(_prevSwipe)) {
-	for (NSInteger col = 0; col < N_COLS; col++) {
+	for (NSInteger col = 0; col < [_board[@"width"] intValue]; col++) {
 	    [self resetObjectAtRow:[self activeRow] column:col];
 	}
     }
     else {
-	for (NSInteger row = 0; row < N_ROWS; row++) {
+	for (NSInteger row = 0; row < [_board[@"height"] intValue]; row++) {
 	    [self resetObjectAtRow:row column:[self activeColumn]];
 	}
     }
