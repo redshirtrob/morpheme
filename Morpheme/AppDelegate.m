@@ -47,7 +47,12 @@
 
     [CCTexture2D PVRImagesHavePremultipliedAlpha:NO];
 
-    [_director pushScene:[[[GameBoardScene alloc] init] autorelease]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"GameBoards" ofType:@"plist"];
+    NSDictionary *gameBoards = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSDictionary *board = gameBoards[@"boards"][1];
+
+    GameBoardScene *scene = [[[GameBoardScene alloc] initWithGameBoard:board] autorelease];
+    [_director pushScene:scene];
 
     _navController = [[UINavigationController alloc] initWithRootViewController:_director];
     _navController.navigationBarHidden = YES;

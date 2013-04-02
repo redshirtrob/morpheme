@@ -58,13 +58,13 @@ typedef enum {
 
 @implementation TileGridLayer
 
-- (id)init {
+- (id)initWithGameBoard:(NSDictionary *)board {
     self = [super init];
     if (self) {
 	[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:kTileDataFile];
 	self.tilesSheet = [CCSpriteBatchNode batchNodeWithFile:kTileTextureFile];
 	[self addChild:_tilesSheet];
-	[self initializeGridWithRows:N_ROWS columns:N_COLS];
+	[self initializeGridWithBoard:board];
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
     return self;
@@ -388,14 +388,17 @@ typedef enum {
 
 #pragma mark - Grid Model Helpers
 
-- (void)initializeGridWithRows:(NSInteger)rowCount columns:(NSInteger)columnCount {
+- (void)initializeGridWithBoard:(NSDictionary *)board {
+    NSInteger rowCount = [board[@"height"] intValue];
+    NSInteger columnCount = [board[@"height"] intValue];
     _gameGrid = [[NSMutableArray alloc] init];
     _gridCoordinates = [[NSMutableArray alloc] init];
     for (int r = 0; r < rowCount; r++) {
 	NSMutableArray *row = [[NSMutableArray alloc] init];
 	NSMutableArray *coordinatesRow = [[NSMutableArray alloc] init];
 	for (int c = 0; c < columnCount; c++) {
-	    LetterTile *tile = [LetterTile randomTile];
+	    LetterTileType type  = CharacterToType([board[@"grid"][r] characterAtIndex:c]);
+	    LetterTile *tile = [LetterTile letterTileWithType:type];
 	    tile.row = r;
 	    tile.col = c;
 	    tile.position = ccp(XCoord(c), YCoord(r));

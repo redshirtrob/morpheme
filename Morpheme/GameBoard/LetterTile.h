@@ -38,6 +38,8 @@ typedef enum {
     LetterTileZ,
 } LetterTileType;
 
+#define CharacterToType(c) (c-65)
+
 @interface LetterTile : CCSprite {
     
 }

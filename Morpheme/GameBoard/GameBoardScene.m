@@ -17,11 +17,12 @@
 @property (nonatomic, retain) CCLayer *backgroundLayer;
 @property (nonatomic, retain) TileGridLayer *tileGridLayer;
 @property (nonatomic, retain) WordListLayer *wordListLayer;
+@property (nonatomic, retain) NSDictionary *board;
 @end
 
 @implementation GameBoardScene
 
-- (id)init {
+- (id)initWithGameBoard:(NSDictionary *)board {
     self = [super init];
     if (self) {
 	_backgroundLayer = [[CCLayer alloc] init];
@@ -31,10 +32,11 @@
 	[_backgroundLayer addChild:background];
 	[self addChild:_backgroundLayer];
 
-	_tileGridLayer = [[TileGridLayer alloc] init];
+	self.board = board;
+	_tileGridLayer = [[TileGridLayer alloc] initWithGameBoard:board];
 	[self addChild:_tileGridLayer];
 	
-	_wordListLayer = [[WordListLayer alloc] initWithOffset:LABEL_Y_OFFSET wordList:@[@"ONE", @"TWO", @"THREE"]];
+	_wordListLayer = [[WordListLayer alloc] initWithOffset:LABEL_Y_OFFSET wordList:board[@"words"]];
 	[self addChild:_wordListLayer];
     }
     return self;

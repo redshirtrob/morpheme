@@ -12,4 +12,6 @@
 @interface GameBoardScene : CCScene {
 }
 
+- (id)initWithGameBoard:(NSDictionary *)board;
+
 @end
