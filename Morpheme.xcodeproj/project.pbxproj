@@ -148,6 +148,7 @@
 		D4BDA64B170AC04F00447481 /* kerrisky.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA64A170AC04F00447481 /* kerrisky.png */; };
 		D4BDA64E170AC4FE00447481 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA64D170AC4FE00447481 /* NSMutableArray+Shuffle.m */; };
 		D4BDA651170AC66D00447481 /* NSMutableArray+Range.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */; };
+		D4BDA654170AE54200447481 /* GameBoardManagementLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -436,6 +437,8 @@
 		D4BDA64D170AC4FE00447481 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Shuffle.m"; path = "Common/NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		D4BDA64F170AC66D00447481 /* NSMutableArray+Range.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Range.h"; path = "Common/NSMutableArray+Range.h"; sourceTree = "<group>"; };
 		D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Range.m"; path = "Common/NSMutableArray+Range.m"; sourceTree = "<group>"; };
+		D4BDA652170AE54200447481 /* GameBoardManagementLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBoardManagementLayer.h; path = GameBoard/GameBoardManagementLayer.h; sourceTree = "<group>"; };
+		D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBoardManagementLayer.m; path = GameBoard/GameBoardManagementLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -887,6 +890,8 @@
 				D426C08C170814C00080A00E /* LetterTile.m */,
 				D426C090170A4AD80080A00E /* WordListLayer.h */,
 				D426C091170A4AD80080A00E /* WordListLayer.m */,
+				D4BDA652170AE54200447481 /* GameBoardManagementLayer.h */,
+				D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */,
 			);
 			name = GameBoard;
 			sourceTree = "<group>";
@@ -1119,6 +1124,7 @@
 				D4BDA649170ABA8400447481 /* MainMenuLayer.m in Sources */,
 				D4BDA64E170AC4FE00447481 /* NSMutableArray+Shuffle.m in Sources */,
 				D4BDA651170AC66D00447481 /* NSMutableArray+Range.m in Sources */,
+				D4BDA654170AE54200447481 /* GameBoardManagementLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
