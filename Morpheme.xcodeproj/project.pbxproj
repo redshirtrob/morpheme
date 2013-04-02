@@ -136,7 +136,6 @@
 		D426C0831707FC7C0080A00E /* GameBoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0821707FC7C0080A00E /* GameBoardScene.m */; };
 		D426C08A1708072E0080A00E /* TileGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C0891708072E0080A00E /* TileGridLayer.m */; };
 		D426C08D170814C00080A00E /* LetterTile.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C08C170814C00080A00E /* LetterTile.m */; };
-		D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = D426C08E170824070080A00E /* Tiles.pvr.ccz */; };
 		D426C092170A4AD80080A00E /* WordListLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C091170A4AD80080A00E /* WordListLayer.m */; };
 		D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA639170A698D00447481 /* RJLabelTTF.m */; };
 		D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */; };
@@ -423,7 +422,6 @@
 		D426C0891708072E0080A00E /* TileGridLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TileGridLayer.m; path = GameBoard/TileGridLayer.m; sourceTree = "<group>"; };
 		D426C08B170814C00080A00E /* LetterTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LetterTile.h; path = GameBoard/LetterTile.h; sourceTree = "<group>"; };
 		D426C08C170814C00080A00E /* LetterTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LetterTile.m; path = GameBoard/LetterTile.m; sourceTree = "<group>"; };
-		D426C08E170824070080A00E /* Tiles.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tiles.pvr.ccz; path = Resources/Tiles.pvr.ccz; sourceTree = "<group>"; };
 		D426C090170A4AD80080A00E /* WordListLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordListLayer.h; path = GameBoard/WordListLayer.h; sourceTree = "<group>"; };
 		D426C091170A4AD80080A00E /* WordListLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordListLayer.m; path = GameBoard/WordListLayer.m; sourceTree = "<group>"; };
 		D4BDA638170A698D00447481 /* RJLabelTTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RJLabelTTF.h; path = Common/RJLabelTTF.h; sourceTree = "<group>"; };
@@ -528,7 +526,6 @@
 				D4BDA641170AAFA000447481 /* background.png */,
 				D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */,
 				D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */,
-				D426C08E170824070080A00E /* Tiles.pvr.ccz */,
 				D426C07B1707D47C0080A00E /* Tiles.plist */,
 				D426C07C1707D47C0080A00E /* Tiles.png */,
 				D426BEF31707D0850080A00E /* Default.png */,
@@ -1022,7 +1019,6 @@
 				D426C0491707D0870080A00E /* ChangeLog in Resources */,
 				D426C07D1707D47C0080A00E /* Tiles.plist in Resources */,
 				D426C07E1707D47C0080A00E /* Tiles.png in Resources */,
-				D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */,
 				D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */,
 				D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */,
 				D4BDA640170AA2BF00447481 /* GameBoards.plist in Resources */,
