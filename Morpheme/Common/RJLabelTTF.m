@@ -24,6 +24,7 @@
 
 + (id)labelWithString:(NSString *)string fontName:(NSString *)name fontSize:(CGFloat)size {
     RJLabelTTF *label = [super labelWithString:string fontName:name fontSize:size];
+    label.color = ccc3(0, 15, 83);
     label.strikethrough = NO;
     label.strikethroughWidth = LINE_WIDTH;
     label.strikethroughColor = [UIColor blackColor];

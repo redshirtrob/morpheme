@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
 	_backgroundLayer = [[CCLayer alloc] init];
-	CCSprite *background = [CCSprite spriteWithFile:@"gameboard-bg.png"];
+	CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	background.position = ccp(size.width/2, size.height/2);
 	[_backgroundLayer addChild:background];
