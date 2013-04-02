@@ -6,6 +6,8 @@
 //  Copyright 2013 Robert Jones. All rights reserved.
 //
 
+#import "SimpleAudioEngine.h"
+
 #import "WordListLayer.h"
 #import "MorphemeCommon.h"
 #import "RJLabelTTF.h"
@@ -49,6 +51,7 @@
 	    }
 	}
 	self.wordList = wordList;
+	[self initializeSounds];
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
     return self;
@@ -99,6 +102,10 @@
 
 #pragma mark - Helpers
 
+- (void)initializeSounds {
+    [[SimpleAudioEngine sharedEngine] preloadEffect:kWordFoundSound];
+}
+
 - (void)handleTouchUpInside:(RJLabelTTF *)label {
     if (![label.string length]) return;
     if (label.strikethrough) {
@@ -108,6 +115,7 @@
     }
     else {
 	if ([_delegate didLockWord:label.string]) {
+	    [[SimpleAudioEngine sharedEngine] playEffect:kWordFoundSound];
 	    label.strikethrough = YES;
 	    [_foundWords addObject:label.string];
 	    if ([_foundWords count] == [_wordList count]) {

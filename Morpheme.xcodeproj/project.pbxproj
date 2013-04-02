@@ -149,6 +149,8 @@
 		D4BDA64E170AC4FE00447481 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA64D170AC4FE00447481 /* NSMutableArray+Shuffle.m */; };
 		D4BDA651170AC66D00447481 /* NSMutableArray+Range.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */; };
 		D4BDA654170AE54200447481 /* GameBoardManagementLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */; };
+		D4BDA657170AE9C200447481 /* game_piece_movement_06.wav in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA655170AE9C200447481 /* game_piece_movement_06.wav */; };
+		D4BDA658170AE9C200447481 /* game_show_bell_05.wav in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA656170AE9C200447481 /* game_show_bell_05.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -439,6 +441,8 @@
 		D4BDA650170AC66D00447481 /* NSMutableArray+Range.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Range.m"; path = "Common/NSMutableArray+Range.m"; sourceTree = "<group>"; };
 		D4BDA652170AE54200447481 /* GameBoardManagementLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBoardManagementLayer.h; path = GameBoard/GameBoardManagementLayer.h; sourceTree = "<group>"; };
 		D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBoardManagementLayer.m; path = GameBoard/GameBoardManagementLayer.m; sourceTree = "<group>"; };
+		D4BDA655170AE9C200447481 /* game_piece_movement_06.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = game_piece_movement_06.wav; path = Resources/game_piece_movement_06.wav; sourceTree = "<group>"; };
+		D4BDA656170AE9C200447481 /* game_show_bell_05.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = game_show_bell_05.wav; path = Resources/game_show_bell_05.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -511,6 +515,8 @@
 		D426BEF21707D0850080A00E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4BDA655170AE9C200447481 /* game_piece_movement_06.wav */,
+				D4BDA656170AE9C200447481 /* game_show_bell_05.wav */,
 				D4BDA64A170AC04F00447481 /* kerrisky.png */,
 				D4BDA641170AAFA000447481 /* background.png */,
 				D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */,
@@ -1003,6 +1009,8 @@
 				D4BDA640170AA2BF00447481 /* GameBoards.plist in Resources */,
 				D4BDA642170AAFA100447481 /* background.png in Resources */,
 				D4BDA64B170AC04F00447481 /* kerrisky.png in Resources */,
+				D4BDA657170AE9C200447481 /* game_piece_movement_06.wav in Resources */,
+				D4BDA658170AE9C200447481 /* game_show_bell_05.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

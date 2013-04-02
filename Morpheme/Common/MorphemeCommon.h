@@ -12,6 +12,8 @@
 #define kTileTextureFile @"Tiles.png"
 #define kTileDataFile @"Tiles.plist"
 #define kDefaultBackgroundImage @"kerrisky.png"
+#define kTileMoveSound @"game_piece_movement_06.wav"
+#define kWordFoundSound @"game_show_bell_05.wav"
 
 #define PRINT_POINT(l, s) NSLog(@"%s: (%6.2f, %6.2f)", l, s.x, s.y)
 #define PRINT_SIZE(l, s) NSLog(@"%s: [%6.2f, %6.2f]", l, s.width, s.height)

@@ -6,6 +6,8 @@
 //  Copyright 2013 Robert Jones. All rights reserved.
 //
 
+#import "SimpleAudioEngine.h"
+
 #import "TileGridLayer.h"
 #import "LetterTile.h"
 #import "MorphemeCommon.h"
@@ -71,6 +73,7 @@ typedef enum {
 	[self addChild:_tilesSheet];
 	self.board = board;
 	[self initializeGridWithBoard:board];
+	[self initializeSounds];
 	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
     return self;
@@ -174,6 +177,7 @@ typedef enum {
 	    thisTile.scale = 1.0;
 	}
 	_totalSwipeDelta = 0;
+	[[SimpleAudioEngine sharedEngine] playEffect:kTileMoveSound];
     }
 }
 
@@ -230,6 +234,7 @@ typedef enum {
 	    thisTile.scale = 1.0;
 	}
 	_totalSwipeDelta = 0;
+	[[SimpleAudioEngine sharedEngine] playEffect:kTileMoveSound];
     }
 }
 
@@ -285,6 +290,7 @@ typedef enum {
 	[_gameGrid[end] replaceObjectAtIndex:activeCol withObject:firstTile];
 	[firstTile release];
 	_totalSwipeDelta = 0;
+	[[SimpleAudioEngine sharedEngine] playEffect:kTileMoveSound];
     }
 }
 
@@ -340,6 +346,7 @@ typedef enum {
 	[_gameGrid[start] replaceObjectAtIndex:activeCol withObject:lastTile];
 	[lastTile release];
 	_totalSwipeDelta = 0;
+	[[SimpleAudioEngine sharedEngine] playEffect:kTileMoveSound];
     }
 }
 
@@ -411,6 +418,10 @@ typedef enum {
 }
 
 #pragma mark - Grid Model Helpers
+
+- (void)initializeSounds {
+    [[SimpleAudioEngine sharedEngine] preloadEffect:kTileMoveSound];
+}
 
 - (void)initializeGridWithBoard:(NSDictionary *)board {
     NSInteger rowCount = [board[@"height"] intValue];

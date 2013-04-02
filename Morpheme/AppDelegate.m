@@ -7,6 +7,7 @@
 //
 
 #import "cocos2d.h"
+#import "SimpleAudioEngine.h"
 
 #import "AppDelegate.h"
 #import "IntroScene.h"
@@ -45,6 +46,8 @@
     [sharedFileUtils setiPadRetinaDisplaySuffix:@"-ipadhd"];
 
     [CCTexture2D PVRImagesHavePremultipliedAlpha:NO];
+
+    [SimpleAudioEngine sharedEngine];
 
     IntroScene *scene = [[[IntroScene alloc] init] autorelease];
     [_director pushScene:scene];
