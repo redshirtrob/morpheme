@@ -531,41 +531,43 @@ typedef enum {
     NSInteger wordLength = [word length];
 
     // Search Rows
-    NSInteger wordIndex = 0;
     for (NSInteger r = 0; r < [_board[@"height"] intValue]; r++) {
-	for (NSInteger c = 0; c < [_board[@"width"] intValue]; c++) {
-	    LetterTile *tile = [self objectAtRow:r column:c];
-	    LetterTileType t = CharacterToType([word characterAtIndex:wordIndex]);
-	    if (tile.type == t && tile.isLockedHorizontal == locked) {
-		if (++wordIndex == wordLength) {
-		    *row = r;
-		    *column = c-wordLength+1;
-		    *type = kWordOrientationHorizontal;
-		    return YES;
+	for (NSInteger c = 0; c < ([_board[@"width"] intValue]-wordLength+1); c++) {
+	    for (NSInteger i = 0; i < wordLength; i++) {
+		LetterTile *tile = [self objectAtRow:r column:c+i];
+		LetterTileType t = CharacterToType([word characterAtIndex:i]);
+		if (tile.type == t && tile.isLockedHorizontal == locked) {
+		    if (i == wordLength-1) {
+			*row = r;
+			*column = c;
+			*type = kWordOrientationHorizontal;
+			return YES;
+		    }
 		}
-	    }
-	    else {
-		wordIndex = 0;
+		else {
+		    break;
+		}
 	    }
 	}
     }
 
     // Search Columns
-    wordIndex = 0;
     for (NSInteger c = 0; c < [_board[@"width"] intValue]; c++) {
-	for (NSInteger r = 0; r < [_board[@"height"] intValue]; r++) {
-	    LetterTile *tile = [self objectAtRow:r column:c];
-	    LetterTileType t = CharacterToType([word characterAtIndex:wordIndex]);
-	    if (tile.type == t && tile.isLockedVertical == locked) {
-		if (++wordIndex == wordLength) {
-		    *row = r-wordLength+1;
-		    *column = c;
-		    *type = kWordOrientationVertical;
-		    return YES;
+	for (NSInteger r = 0; r < ([_board[@"height"] intValue]-wordLength+1); r++) {
+	    for (NSInteger i = 0; i < wordLength; i++) {
+		LetterTile *tile = [self objectAtRow:r+i column:c];
+		LetterTileType t = CharacterToType([word characterAtIndex:i]);
+		if (tile.type == t && tile.isLockedVertical == locked) {
+		    if (i == wordLength-1) {
+			*row = r;
+			*column = c;
+			*type = kWordOrientationVertical;
+			return YES;
+		    }
 		}
-	    }
-	    else {
-		wordIndex = 0;
+		else {
+		    break;
+		}
 	    }
 	}
     }
