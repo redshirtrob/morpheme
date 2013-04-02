@@ -34,7 +34,7 @@
 	_tileGridLayer = [[TileGridLayer alloc] init];
 	[self addChild:_tileGridLayer];
 	
-	_wordListLayer = [[WordListLayer alloc] initWithOffset:LABEL_Y_OFFSET wordList:nil];
+	_wordListLayer = [[WordListLayer alloc] initWithOffset:LABEL_Y_OFFSET wordList:@[@"ONE", @"TWO", @"THREE"]];
 	[self addChild:_wordListLayer];
     }
     return self;

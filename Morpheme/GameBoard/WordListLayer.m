@@ -24,16 +24,18 @@
 #define YCoord(j) (_offset - ((((j) + 1) * LABEL_VERTICAL_SEPARATOR) + (((j) + 0.5) * LABEL_HEIGHT)))
 
 @interface WordListLayer ()
+@property (nonatomic, assign) UITouch *activeTouch;
 @property (nonatomic, retain) NSMutableArray *wordLabels;
 @end
 
-@implementation WordListLayer
+@implementation WordListLayer {
+    NSArray *_wordList;
+}
 
 - (id)initWithOffset:(CGFloat)offset wordList:(NSArray *)wordList {
     self = [super init];
     if (self) {
 	self.offset = offset;
-	self.wordList = wordList;
 	_wordLabels = [[NSMutableArray alloc] init];
 	for (NSInteger row = 0; row < N_ROWS; row++) {
 	    for (NSInteger col = 0; col < N_COLS; col++) {
@@ -43,6 +45,8 @@
 		[_wordLabels addObject:label];
 	    }
 	}
+	self.wordList = wordList;
+	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
     }
     return self;
 }
@@ -54,5 +58,68 @@
 }
 
 #pragma mark Getters/Setters
+
+- (void)setWordList:(NSArray *)wordList {
+    if (_wordList != wordList) {
+	NSArray *tmpWordList = _wordList;
+	_wordList = [wordList retain];
+	[tmpWordList release];
+	[self updateLabels];
+    }
+}
+
+#pragma mark - CCTargetedTouchDelegate
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    BOOL touchBegan = NO;
+    if (!_activeTouch && [self labelForTouch:touch]) {
+	self.activeTouch = touch;
+	touchBegan = YES;
+    }
+    return touchBegan;
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    if (touch == _activeTouch) {
+	CCLabelTTF *label = [self labelForTouch:touch];
+	if (label) [self handleTouchUpInside:label];
+	self.activeTouch = nil;
+    }
+}
+
+- (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
+    if (touch == _activeTouch) {
+	self.activeTouch = nil;
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)handleTouchUpInside:(CCLabelTTF *)label {
+    NSLog(@"User tapped: %@", label.string);
+}
+
+- (void)updateLabels {
+    NSInteger index = 0;
+    for (CCLabelTTF *label in _wordLabels) {
+	NSString *word = @"";
+	if (index < [_wordList count]) {
+	    word = _wordList[index];
+	}
+	[label setString:word];
+	index++;
+    }
+}
+
+- (CCLabelTTF *)labelForTouch:(UITouch *)touch {
+    CGPoint location = [touch locationInView:[touch view]];
+    CGPoint glLocation = [[CCDirector sharedDirector] convertToGL:location];
+    for (CCLabelTTF *label in _wordLabels) {
+	if (CGRectContainsPoint(label.boundingBox, glLocation)) {
+	    return label;
+	}
+    }
+    return nil;
+}
 
 @end
