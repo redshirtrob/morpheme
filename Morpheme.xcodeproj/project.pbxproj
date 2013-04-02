@@ -151,6 +151,8 @@
 		D4BDA654170AE54200447481 /* GameBoardManagementLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */; };
 		D4BDA657170AE9C200447481 /* game_piece_movement_06.wav in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA655170AE9C200447481 /* game_piece_movement_06.wav */; };
 		D4BDA658170AE9C200447481 /* game_show_bell_05.wav in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA656170AE9C200447481 /* game_show_bell_05.wav */; };
+		D4BDA65C170AEC3600447481 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA65B170AEC3600447481 /* GameOverScene.m */; };
+		D4BDA65F170AEC8A00447481 /* GameOverMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA65E170AEC8A00447481 /* GameOverMenuLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -443,6 +445,10 @@
 		D4BDA653170AE54200447481 /* GameBoardManagementLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBoardManagementLayer.m; path = GameBoard/GameBoardManagementLayer.m; sourceTree = "<group>"; };
 		D4BDA655170AE9C200447481 /* game_piece_movement_06.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = game_piece_movement_06.wav; path = Resources/game_piece_movement_06.wav; sourceTree = "<group>"; };
 		D4BDA656170AE9C200447481 /* game_show_bell_05.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = game_show_bell_05.wav; path = Resources/game_show_bell_05.wav; sourceTree = "<group>"; };
+		D4BDA65A170AEC3600447481 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverScene.h; path = Morpheme/GameOver/GameOverScene.h; sourceTree = "<group>"; };
+		D4BDA65B170AEC3600447481 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverScene.m; path = Morpheme/GameOver/GameOverScene.m; sourceTree = "<group>"; };
+		D4BDA65D170AEC8A00447481 /* GameOverMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverMenuLayer.h; path = Morpheme/GameOver/GameOverMenuLayer.h; sourceTree = "<group>"; };
+		D4BDA65E170AEC8A00447481 /* GameOverMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverMenuLayer.m; path = Morpheme/GameOver/GameOverMenuLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -505,6 +511,7 @@
 				D426C085170801AE0080A00E /* Main */,
 				D426C0841708019B0080A00E /* GameBoard */,
 				D4BDA643170AB88200447481 /* Intro */,
+				D4BDA659170AEBF300447481 /* Game Over */,
 				D426BEF21707D0850080A00E /* Resources */,
 				D426BF0C1707D0850080A00E /* libs */,
 				D426C0651707D0870080A00E /* Supporting Files */,
@@ -937,6 +944,18 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		D4BDA659170AEBF300447481 /* Game Over */ = {
+			isa = PBXGroup;
+			children = (
+				D4BDA65A170AEC3600447481 /* GameOverScene.h */,
+				D4BDA65B170AEC3600447481 /* GameOverScene.m */,
+				D4BDA65D170AEC8A00447481 /* GameOverMenuLayer.h */,
+				D4BDA65E170AEC8A00447481 /* GameOverMenuLayer.m */,
+			);
+			name = "Game Over";
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1133,6 +1152,8 @@
 				D4BDA64E170AC4FE00447481 /* NSMutableArray+Shuffle.m in Sources */,
 				D4BDA651170AC66D00447481 /* NSMutableArray+Range.m in Sources */,
 				D4BDA654170AE54200447481 /* GameBoardManagementLayer.m in Sources */,
+				D4BDA65C170AEC3600447481 /* GameOverScene.m in Sources */,
+				D4BDA65F170AEC8A00447481 /* GameOverMenuLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
