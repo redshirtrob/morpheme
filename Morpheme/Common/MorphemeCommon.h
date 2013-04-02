@@ -11,6 +11,7 @@
 
 #define kTileTextureFile @"Tiles.png"
 #define kTileDataFile @"Tiles.plist"
+#define kDefaultBackgroundImage @"kerrisky.png"
 
 #define PRINT_POINT(l, s) NSLog(@"%s: (%6.2f, %6.2f)", l, s.x, s.y)
 #define PRINT_SIZE(l, s) NSLog(@"%s: [%6.2f, %6.2f]", l, s.width, s.height)

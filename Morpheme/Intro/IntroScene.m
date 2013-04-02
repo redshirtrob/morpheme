@@ -8,6 +8,7 @@
 
 #import "IntroScene.h"
 #import "MainMenuLayer.h"
+#import "MorphemeCommon.h"
 
 @implementation IntroScene
 
@@ -15,7 +16,7 @@
     self = [super init];
     if (self) {
 	CCLayer *backgroundLayer = [[CCLayer alloc] init];
-	CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
+	CCSprite *background = [CCSprite spriteWithFile:kDefaultBackgroundImage];
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	background.position = ccp(size.width/2, size.height/2);
 	[backgroundLayer addChild:background];
