@@ -140,6 +140,8 @@
 		D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = D426C08E170824070080A00E /* Tiles.pvr.ccz */; };
 		D426C092170A4AD80080A00E /* WordListLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D426C091170A4AD80080A00E /* WordListLayer.m */; };
 		D4BDA63A170A698D00447481 /* RJLabelTTF.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA639170A698D00447481 /* RJLabelTTF.m */; };
+		D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */; };
+		D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -416,6 +418,8 @@
 		D426C091170A4AD80080A00E /* WordListLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordListLayer.m; path = GameBoard/WordListLayer.m; sourceTree = "<group>"; };
 		D4BDA638170A698D00447481 /* RJLabelTTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RJLabelTTF.h; path = Common/RJLabelTTF.h; sourceTree = "<group>"; };
 		D4BDA639170A698D00447481 /* RJLabelTTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RJLabelTTF.m; path = Common/RJLabelTTF.m; sourceTree = "<group>"; };
+		D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Comfortaa_Regular.ttf; path = Resources/Comfortaa_Regular.ttf; sourceTree = "<group>"; };
+		D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Comfortaa-Bold.ttf"; path = "Resources/Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -487,6 +491,8 @@
 		D426BEF21707D0850080A00E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4BDA63D170AA00300447481 /* Comfortaa-Bold.ttf */,
+				D4BDA63B170A9DCB00447481 /* Comfortaa_Regular.ttf */,
 				D426C08E170824070080A00E /* Tiles.pvr.ccz */,
 				D426C07F1707F3D90080A00E /* gameboard-bg.png */,
 				D426C07B1707D47C0080A00E /* Tiles.plist */,
@@ -953,6 +959,8 @@
 				D426C07E1707D47C0080A00E /* Tiles.png in Resources */,
 				D426C0801707F3D90080A00E /* gameboard-bg.png in Resources */,
 				D426C08F170824070080A00E /* Tiles.pvr.ccz in Resources */,
+				D4BDA63C170A9DCB00447481 /* Comfortaa_Regular.ttf in Resources */,
+				D4BDA63E170AA00300447481 /* Comfortaa-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

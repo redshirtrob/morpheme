@@ -40,7 +40,7 @@
 	_wordLabels = [[NSMutableArray alloc] init];
 	for (NSInteger row = 0; row < N_ROWS; row++) {
 	    for (NSInteger col = 0; col < N_COLS; col++) {
-		RJLabelTTF *label = [RJLabelTTF labelWithString:@"" fontName:@"Marker Felt" fontSize:FONT_SIZE];
+		RJLabelTTF *label = [RJLabelTTF labelWithString:@"" fontName:@"Comfortaa-Bold" fontSize:FONT_SIZE];
 		label.position = ccp(XCoord(col), YCoord(row));
 		[self addChild:label];
 		[_wordLabels addObject:label];
