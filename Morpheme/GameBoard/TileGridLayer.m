@@ -126,6 +126,8 @@ typedef enum {
 - (void)shiftLeftByDelta:(CGFloat)delta {
     NSInteger start = [self startColumn];
     NSInteger end = [self endColumn];
+    if (start == end) return;
+
     NSInteger activeRow = _activeTile.row;
     LetterTile *firstTile = [self objectAtRow:activeRow column:start];
     LetterTile *lastTile = [self objectAtRow:activeRow column:end];
@@ -184,6 +186,8 @@ typedef enum {
 - (void)shiftRightByDelta:(CGFloat)delta {
     NSInteger start = [self startColumn];
     NSInteger end = [self endColumn];
+    if (start == end) return;
+
     NSInteger activeRow = _activeTile.row;
     LetterTile *firstTile = [self objectAtRow:activeRow column:start];
     LetterTile *lastTile = [self objectAtRow:activeRow column:end];
@@ -241,6 +245,8 @@ typedef enum {
 - (void)shiftUpByDelta:(CGFloat)delta {
     NSInteger start = [self startRow];
     NSInteger end = [self endRow];
+    if (start == end) return;
+
     NSInteger activeCol = _activeTile.col;
     LetterTile *firstTile = [self objectAtRow:start column:activeCol];
     LetterTile *lastTile = [self objectAtRow:end column:activeCol];
@@ -297,6 +303,8 @@ typedef enum {
 - (void)shiftDownByDelta:(CGFloat)delta {
     NSInteger start = [self startRow];
     NSInteger end = [self endRow];
+    if (start == end) return;
+
     NSInteger activeCol = _activeTile.col;
     LetterTile *firstTile = [self objectAtRow:start column:activeCol];
     LetterTile *lastTile = [self objectAtRow:end column:activeCol];
