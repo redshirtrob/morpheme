@@ -139,7 +139,7 @@ typedef enum {
 	firstTile.position = ccp(firstTile.position.x-delta, firstTile.position.y);
     }
     else {
-	firstTile.scale = (GRID_TILE_WIDTH-_totalSwipeDelta)/GRID_TILE_WIDTH;
+	firstTile.scaleX = (GRID_TILE_WIDTH-_totalSwipeDelta)/GRID_TILE_WIDTH;
 	firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
     }
 
@@ -150,11 +150,11 @@ typedef enum {
     }
 
     // Last Tile
-    if (lastTile.scale < 1.0) {
-	lastTile.scale = (GRID_TILE_WIDTH+_totalSwipeDelta)/GRID_TILE_WIDTH;
+    if (lastTile.scaleX < 1.0) {
+	lastTile.scaleX = (GRID_TILE_WIDTH+_totalSwipeDelta)/GRID_TILE_WIDTH;
 	lastTile.position = ccp(lastTilePoint.x-_totalSwipeDelta/2.0, lastTilePoint.y);
-	if (lastTile.scale > SCALE_DETENT) {
-	    lastTile.scale = 1.0;
+	if (lastTile.scaleX > SCALE_DETENT) {
+	    lastTile.scaleX = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x+delta, lastTilePoint.y);
 	}
     }
@@ -167,7 +167,7 @@ typedef enum {
 	[firstTile retain];
 	[_gameGrid[activeRow] removeObjectAtIndex:firstTile.col];
 	firstTile.position = lastTilePoint;
-	firstTile.scale = 1.0;
+	firstTile.scaleX = 1.0;
 	firstTile.col = lastTile.col;
 	[_gameGrid[activeRow] insertObject:firstTile atIndex:firstTile.col];
 	[firstTile release];
@@ -176,7 +176,7 @@ typedef enum {
 	    LetterTile *thisTile = [self objectAtRow:activeRow column:col];
 	    thisTile.position = [self pointForRow:activeRow column:col];
 	    thisTile.col = col;
-	    thisTile.scale = 1.0;
+	    thisTile.scaleX = 1.0;
 	}
 	_totalSwipeDelta = 0;
 	[[SimpleAudioEngine sharedEngine] playEffect:kTileMoveSound];
@@ -199,7 +199,7 @@ typedef enum {
 	lastTile.position = ccp(lastTile.position.x+delta, lastTile.position.y);
     }
     else {
-	lastTile.scale = (GRID_TILE_WIDTH+_totalSwipeDelta)/GRID_TILE_WIDTH;
+	lastTile.scaleX = (GRID_TILE_WIDTH+_totalSwipeDelta)/GRID_TILE_WIDTH;
 	lastTile.position = ccp(lastTilePoint.x-_totalSwipeDelta/2.0, lastTilePoint.y);
     }
 
@@ -210,11 +210,11 @@ typedef enum {
     }
 
     // First Tile
-    if (firstTile.scale < 1.0) {
-	firstTile.scale = (GRID_TILE_WIDTH-_totalSwipeDelta)/GRID_TILE_WIDTH;
+    if (firstTile.scaleX < 1.0) {
+	firstTile.scaleX = (GRID_TILE_WIDTH-_totalSwipeDelta)/GRID_TILE_WIDTH;
 	firstTile.position = ccp(firstTilePoint.x-_totalSwipeDelta/2.0, firstTilePoint.y);
-	if (firstTile.scale > SCALE_DETENT) {
-	    firstTile.scale = 1.0;
+	if (firstTile.scaleX > SCALE_DETENT) {
+	    firstTile.scaleX = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x-delta, firstTilePoint.y);
 	}
     }
@@ -227,7 +227,7 @@ typedef enum {
 	[lastTile retain];
 	[_gameGrid[activeRow] removeObjectAtIndex:lastTile.col];
 	lastTile.position = firstTilePoint;
-	lastTile.scale = 1.0;
+	lastTile.scaleX = 1.0;
 	lastTile.col = firstTile.col;
 	[_gameGrid[activeRow] insertObject:lastTile atIndex:lastTile.col];
 
@@ -235,7 +235,7 @@ typedef enum {
 	    LetterTile *thisTile = [self objectAtRow:activeRow column:col];
 	    thisTile.position = [self pointForRow:activeRow column:col];
 	    thisTile.col = col;
-	    thisTile.scale = 1.0;
+	    thisTile.scaleX = 1.0;
 	}
 	_totalSwipeDelta = 0;
 	[[SimpleAudioEngine sharedEngine] playEffect:kTileMoveSound];
@@ -258,7 +258,7 @@ typedef enum {
 	firstTile.position = ccp(firstTile.position.x, firstTile.position.y+delta);
     }
     else {
-	firstTile.scale = (GRID_TILE_HEIGHT-_totalSwipeDelta)/GRID_TILE_HEIGHT;
+	firstTile.scaleY = (GRID_TILE_HEIGHT-_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
     }
 
@@ -269,11 +269,11 @@ typedef enum {
     }
 
     // Last Tile
-    if (lastTile.scale < 1.0) {
-	lastTile.scale = (GRID_TILE_HEIGHT+_totalSwipeDelta)/GRID_TILE_HEIGHT;
+    if (lastTile.scaleY < 1.0) {
+	lastTile.scaleY = (GRID_TILE_HEIGHT+_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y+_totalSwipeDelta/2.0);
-	if (lastTile.scale > SCALE_DETENT) {
-	    lastTile.scale = 1.0;
+	if (lastTile.scaleY > SCALE_DETENT) {
+	    lastTile.scaleY = 1.0;
 	    lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y-delta);
 	}
     }
@@ -288,7 +288,7 @@ typedef enum {
 	    LetterTile *thisTile = [self objectAtRow:row column:activeCol];
 	    thisTile.row = row-1;
 	    thisTile.position = [self pointForRow:row-1 column:activeCol];
-	    thisTile.scale = 1.0;
+	    thisTile.scaleY = 1.0;
 	    [_gameGrid[row-1] replaceObjectAtIndex:activeCol withObject:thisTile];
 	}
 	firstTile.position = [self pointForRow:end column:activeCol];
@@ -316,7 +316,7 @@ typedef enum {
 	lastTile.position = ccp(lastTile.position.x, lastTile.position.y-delta);
     }
     else {
-	lastTile.scale = (GRID_TILE_HEIGHT+_totalSwipeDelta)/GRID_TILE_HEIGHT;
+	lastTile.scaleY = (GRID_TILE_HEIGHT+_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	lastTile.position = ccp(lastTilePoint.x, lastTilePoint.y+_totalSwipeDelta/2.0);
     }
 
@@ -327,11 +327,11 @@ typedef enum {
     }
 
     // First Tile
-    if (firstTile.scale < 1.0) {
-	firstTile.scale = (GRID_TILE_HEIGHT-_totalSwipeDelta)/GRID_TILE_HEIGHT;
+    if (firstTile.scaleY < 1.0) {
+	firstTile.scaleY = (GRID_TILE_HEIGHT-_totalSwipeDelta)/GRID_TILE_HEIGHT;
 	firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y+_totalSwipeDelta/2.0);
-	if (firstTile.scale > SCALE_DETENT) {
-	    firstTile.scale = 1.0;
+	if (firstTile.scaleY > SCALE_DETENT) {
+	    firstTile.scaleY = 1.0;
 	    firstTile.position = ccp(firstTilePoint.x, firstTilePoint.y-delta);
 	}
     }
@@ -346,7 +346,7 @@ typedef enum {
 	    LetterTile *thisTile = [self objectAtRow:row column:activeCol];
 	    thisTile.row = row+1;
 	    thisTile.position = [self pointForRow:row+1 column:activeCol];
-	    thisTile.scale = 1.0;
+	    thisTile.scaleY = 1.0;
 	    [_gameGrid[row+1] replaceObjectAtIndex:activeCol withObject:thisTile];
 	}
 	lastTile.position = [self pointForRow:start column:activeCol];
@@ -530,7 +530,7 @@ typedef enum {
 - (void)resetObjectAtRow:(NSInteger)row column:(NSInteger)column {
     LetterTile *tile = [self objectAtRow:row column:column];
     tile.position = [self pointForRow:row column:column];
-    tile.scale = 1.0;
+    tile.scaleX = tile.scaleY = 1.0;
 }
 
 - (void)updateObjectsAtRow:(NSInteger)row column:(NSInteger)column length:(NSInteger)length type:(WordOrientationType)type locked:(BOOL)locked {
